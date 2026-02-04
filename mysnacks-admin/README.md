@@ -1,1 +1,0 @@
-MySnacks Admin Panel
