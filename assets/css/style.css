@@ -24,10 +24,10 @@
   --primary5: #384BFF;
   --secondary: #646463;
   --black: #0E0E0C;
-  --green: #A0EA71;
+  --green: #ff6a00;
   --white: #FFF;
   --red: #f14f44;
-  --lime-green: #90ee02;
+  --lime-green: #f8822d;
   --orange: #FF5914;
   --yellow: #f3ff0a;
   --purple: #5814f9;
@@ -5226,7 +5226,7 @@ section {
   font-size: 18px;
   font-weight: 600;
   line-height: 26px;
-  color: #173401;
+  color: #ff6a00;
   padding: 4px 19.3px;
   border-radius: 500px;
   letter-spacing: 0.5px;
@@ -5390,7 +5390,7 @@ section {
 }
 
 .copyright {
-  background-color: #173401;
+  background-color: #ff6a00;
 }
 .copyright__wrap {
   display: flex;
@@ -5562,7 +5562,7 @@ section {
   line-height: 24px;
 }
 .section-title-3__wrapper .rr-btn-green.has--drk-gren {
-  background: #173401;
+  background: #ff6a00;
 }
 .section-title-3__wrapper .rr-btn-green.has--drk-gren .btn-wrap .text-one {
   color: var(--white);
@@ -5909,7 +5909,7 @@ section {
   border-bottom: 1px solid rgba(201, 201, 200, 0.32);
 }
 .section-title__wrapper .rr-btn-green.has--drk-gren {
-  background: #173401;
+  background: #ff6a00;
 }
 .section-title__wrapper .rr-btn-green.has--drk-gren .btn-wrap .text-one {
   color: var(--white);
@@ -5975,7 +5975,7 @@ section {
   align-items: center;
   border-radius: 100px;
   display: inline-flex;
-  background: #173401;
+  background: #ff6a00;
   backdrop-filter: blur(6px);
 }
 .hero__content__author ul {
@@ -6247,7 +6247,7 @@ section {
   padding: 18px;
   border-radius: 8px;
   align-items: center;
-  background: #173401;
+  background: #ff6a00;
   justify-content: center;
   margin-bottom: 48px;
 }
@@ -6725,7 +6725,7 @@ section {
   border: 1px solid rgba(23, 52, 1, 0.32);
 }
 .blog__content ul li:last-child {
-  background: #173401;
+  background: #ff6a00;
   color: var(--white);
 }
 .blog__item {
@@ -6765,7 +6765,7 @@ section {
 }
 .blog__item .content .meta-list li {
   font-size: 14px;
-  color: #173401;
+  color: #ff6a00;
   font-weight: 600;
   line-height: 20px;
   padding: 6px 16px;
@@ -6889,7 +6889,7 @@ section {
   color: var(--white);
   border-radius: 500px;
   margin-right: 10px;
-  background: #173401;
+  background: #ff6a00;
 }
 .pricing .pricing__toggle-button {
   display: flex;
@@ -7140,7 +7140,7 @@ section {
   right: 26px;
 }
 .technology__card .section-title__wrapper .sub-title {
-  background: #173401;
+  background: #ff6a00;
   color: var(--white);
   border: 1px solid rgba(201, 201, 200, 0.24);
 }
@@ -7390,7 +7390,7 @@ section {
   transition: all 0.3s;
 }
 .testimonial .arrow-btn:hover {
-  background: #173401;
+  background: #ff6a00;
   color: var(--white);
 }
 .testimonial__info {
