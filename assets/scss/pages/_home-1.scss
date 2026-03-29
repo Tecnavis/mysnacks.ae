@@ -16,7 +16,7 @@
             background: #F6F6F6;
 
             &.has--green {
-                background: var(--green);
+                background: var(--primary);
                 color: var(--black);
             }
         }
@@ -369,7 +369,7 @@
         }
 
         &:hover {
-            background: var(--green);
+            background: var(--primary);
 
             span {
                 background: var(--white);
@@ -384,7 +384,7 @@
             align-items: center;
             justify-content: center;
             border-radius: 8px;
-            background: var(--green);
+            background: var(--primary);
             transition: all 0.3s;
         }
 
@@ -460,7 +460,7 @@
 
             a {
                 &:hover {
-                    color: var(--green);
+                    color: var(--primary);
                 }
             }
         }
@@ -491,7 +491,7 @@
             border: 1px solid #A0EA71;
 
             .service__item .icon {
-                background: var(--green);
+                background: var(--primary);
                 color: var(--black);
             }
         }
@@ -521,7 +521,7 @@
             border-radius: 500px;
             transition: all 0.3s;
             transform: translate(-50%, -50%);
-            border: 1px solid var(--green);
+            border: 1px solid var(--primary);
         }
 
         &::after {
@@ -538,7 +538,7 @@
 
         &.swiper-pagination-bullet-active {
             &::after {
-                background: var(--green);
+                background: var(--primary);
             }
 
             background: transparent;
@@ -575,7 +575,7 @@
 
             &:hover {
                 color: var(--black);
-                background: var(--green);
+                background: var(--primary);
             }
         }
     }
@@ -751,7 +751,7 @@
         }
 
         &:hover {
-            background: var(--green);
+            background: var(--primary);
 
             .title {
                 .icon {
@@ -778,7 +778,7 @@
                 border-radius: 8px;
                 align-items: center;
                 justify-content: center;
-                background: var(--green);
+                background: var(--primary);
                 transition: all 0.3s;
             }
 
@@ -845,7 +845,7 @@
         }
 
         &:has(.global-accordion-button:not(.collapsed)) {
-            background: var(--green);
+            background: var(--primary);
         }
 
         .global-accordion {
@@ -906,7 +906,7 @@
                 font-size: 16px;
                 font-weight: 400;
                 line-height: 24px;
-                background: var(--green);
+                background: var(--primary);
 
                 p {
                     font-size: 16px;
@@ -939,7 +939,7 @@
         padding: 48px 32px;
         border-radius: 16px;
         margin-bottom: 32px;
-        background: var(--green);
+        background: var(--primary);
 
         @media #{$lg} {
             margin-bottom: 30px;

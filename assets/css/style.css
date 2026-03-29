@@ -19,7 +19,16 @@
 /* === Colors variable scss (index 01) === */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet');
 :root {
-  --primary: #004FFC;
+   --primary: #ff6a00;
+  --primary-dark: #e65c00;
+  --primary-glow: rgba(255,106,0,0.18);
+
+  --ink: #0b0b0f;
+  --ink-soft: #14141a;
+  --white: #ffffff;
+  --border: rgba(255,106,0,0.2);
+
+
   --primary4: #7444FD;
   --primary5: #384BFF;
   --secondary: #646463;
@@ -1377,7 +1386,7 @@ section {
   justify-content: center;
   text-transform: uppercase;
   font-family: var(--font_monts);
-  background-color: var(--green);
+  background-color: var(--primary);
 }
 .rr-btn-green:hover::before, .rr-btn-green:focus::before {
   height: 100%;
@@ -1440,7 +1449,7 @@ section {
   line-height: 20px;
   padding: 12px 28px;
   border-radius: 2px;
-  background: var(--green);
+  background: var(--primary);
 }
 .rr-btn-green.btn-purple::before {
   background: #b4f914;
@@ -1544,7 +1553,7 @@ section {
   line-height: 20px;
   padding: 12px 28px;
   border-radius: 2px;
-  background: var(--green);
+  background: var(--primary);
 }
 .rr-btn-2.btn-purple::before {
   background: #febc00;
@@ -2688,7 +2697,7 @@ section {
   }
 }
 .header-area-1 .header-right .search:hover {
-  background: var(--green);
+  background: var(--primary);
   color: var(--black);
 }
 .header-area-1 .header-right .side-toggle .bar-icon {
@@ -2697,7 +2706,7 @@ section {
 }
 .header-area-1 .header-right .side-toggle .bar-icon span {
   height: 1px;
-  background: var(--green);
+  background: var(--primary);
 }
 @media only screen and (max-width: 1399px) {
   .header-area-1 .header-right .rr-btn-green {
@@ -2718,7 +2727,7 @@ section {
   padding: 0 25px;
 }
 .header-area-1 .main-menu ul.dp-menu li:hover > a {
-  color: var(--green);
+  color: var(--primary);
   background-color: transparent;
 }
 .header-area-1 .main-menu ul.dp-menu li:hover > ul {
@@ -2746,7 +2755,7 @@ section {
   display: flex;
 }
 .header-area-1 .main-menu > ul > li:hover > a {
-  color: var(--green);
+  color: var(--primary);
 }
 .header-area-1 .main-menu li a {
   font-size: 16px;
@@ -2764,7 +2773,7 @@ section {
   }
 }
 .header-area-1 .main-menu li a:hover {
-  color: var(--green);
+  color: var(--primary);
 }
 .header-area-1 .header__navicon {
   margin-left: auto;
@@ -2867,7 +2876,7 @@ section {
   }
 }
 .header-area-2 .header-right .search:hover {
-  background: var(--green);
+  background: var(--primary);
   color: var(--black);
 }
 .header-area-2 .header-right .side-toggle .bar-icon {
@@ -2897,7 +2906,7 @@ section {
   padding: 0 25px;
 }
 .header-area-2 .main-menu ul.dp-menu li:hover > a {
-  color: var(--green);
+  color: var(--primary);
   background-color: transparent;
 }
 .header-area-2 .main-menu ul.dp-menu li:hover > ul {
@@ -2925,7 +2934,7 @@ section {
   display: flex;
 }
 .header-area-2 .main-menu > ul > li:hover > a {
-  color: var(--green);
+  color: var(--primary);
 }
 .header-area-2 .main-menu li a {
   font-size: 16px;
@@ -2943,7 +2952,7 @@ section {
   }
 }
 .header-area-2 .main-menu li a:hover {
-  color: var(--green);
+  color: var(--primary);
 }
 .header-area-2 .header__navicon {
   margin-left: auto;
@@ -3210,7 +3219,7 @@ section {
   }
 }
 .header-area .header-right .search:hover {
-  background: var(--green);
+  background: var(--primary);
   color: var(--black);
 }
 .header-area .header-right .side-toggle .bar-icon {
@@ -3243,7 +3252,7 @@ section {
   padding: 0 25px;
 }
 .header-area .main-menu ul.dp-menu li:hover > a {
-  color: var(--green);
+  color: var(--primary);
   background-color: transparent;
 }
 .header-area .main-menu ul.dp-menu li:hover > ul {
@@ -3271,7 +3280,7 @@ section {
   display: flex;
 }
 .header-area .main-menu > ul > li:hover > a {
-  color: var(--green);
+  color: var(--primary);
 }
 .header-area .main-menu li a {
   font-size: 16px;
@@ -3289,7 +3298,7 @@ section {
   }
 }
 .header-area .main-menu li a:hover {
-  color: var(--green);
+  color: var(--primary);
 }
 .header-area .header__navicon {
   margin-left: auto;
@@ -5871,7 +5880,7 @@ section {
   background: #F6F6F6;
 }
 .section-title__wrapper .sub-title.has--green {
-  background: var(--green);
+  background: var(--primary);
   color: var(--black);
 }
 .section-title__wrapper .title {
@@ -6190,7 +6199,7 @@ section {
   margin-bottom: 24px;
 }
 .features-1__item:hover {
-  background: var(--green);
+  background: var(--primary);
 }
 .features-1__item:hover span {
   background: var(--white);
@@ -6203,7 +6212,7 @@ section {
   align-items: center;
   justify-content: center;
   border-radius: 8px;
-  background: var(--green);
+  background: var(--primary);
   transition: all 0.3s;
 }
 .features-1__item .text .title {
@@ -6264,7 +6273,7 @@ section {
   letter-spacing: 0.5px;
 }
 .service__item .title a:hover {
-  color: var(--green);
+  color: var(--primary);
 }
 .service__item .desc {
   font-size: 16px;
@@ -6288,7 +6297,7 @@ section {
   border: 1px solid #A0EA71;
 }
 .service .swiper-slide-next .service__item .icon {
-  background: var(--green);
+  background: var(--primary);
   color: var(--black);
 }
 .service .service-pagination {
@@ -6314,7 +6323,7 @@ section {
   border-radius: 500px;
   transition: all 0.3s;
   transform: translate(-50%, -50%);
-  border: 1px solid var(--green);
+  border: 1px solid var(--primary);
 }
 .service .swiper-pagination-bullet::after {
   content: "";
@@ -6331,7 +6340,7 @@ section {
   background: transparent;
 }
 .service .swiper-pagination-bullet.swiper-pagination-bullet-active::after {
-  background: var(--green);
+  background: var(--primary);
 }
 .service__arrow {
   display: flex;
@@ -6361,7 +6370,7 @@ section {
 }
 .service__arrow-prev:hover, .service__arrow-next:hover {
   color: var(--black);
-  background: var(--green);
+  background: var(--primary);
 }
 
 .choose-us__inner {
@@ -6506,7 +6515,7 @@ section {
   }
 }
 .choose-us__item:hover {
-  background: var(--green);
+  background: var(--primary);
 }
 .choose-us__item:hover .title .icon {
   background: var(--black);
@@ -6528,7 +6537,7 @@ section {
   border-radius: 8px;
   align-items: center;
   justify-content: center;
-  background: var(--green);
+  background: var(--primary);
   transition: all 0.3s;
 }
 .choose-us__item .title a {
@@ -6580,7 +6589,7 @@ section {
   }
 }
 .accordion .global-accordion-item:has(.global-accordion-button:not(.collapsed)) {
-  background: var(--green);
+  background: var(--primary);
 }
 .accordion .global-accordion-item .global-accordion-header {
   margin: 0;
@@ -6635,7 +6644,7 @@ section {
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-  background: var(--green);
+  background: var(--primary);
 }
 .accordion .global-accordion-item .global-accordion-body p {
   font-size: 16px;
@@ -6658,7 +6667,7 @@ section {
   padding: 48px 32px;
   border-radius: 16px;
   margin-bottom: 32px;
-  background: var(--green);
+  background: var(--primary);
 }
 @media only screen and (max-width: 1199px) {
   .blog__content {
@@ -9887,7 +9896,7 @@ section {
   padding: 18px 40.4px;
 }
 .hero-section-2__left .rr-btn-green::before {
-  background: var(--green);
+  background: var(--primary);
   color: var(--black);
 }
 .hero-section-2__left .rr-btn-green .btn-wrap .text-one {
@@ -10582,7 +10591,7 @@ section {
   padding: 18px 41px;
 }
 .features-section-2__btn .rr-btn-green::before {
-  background: var(--green);
+  background: var(--primary);
 }
 .features-section-2__btn .rr-btn-green .btn-wrap .text-one {
   color: var(--white);

@@ -14,7 +14,7 @@
   justify-content: center;
   text-transform: uppercase;
   font-family: var(--font_monts);
-  background-color: var(--green);
+  background-color: var(--primary);
 
   &:hover,
   &:focus {
@@ -96,7 +96,7 @@
     line-height: 20px;
     padding: 12px 28px;
     border-radius: 2px;
-    background: var(--green);
+    background: var(--primary);
   }
 
   &.btn-purple {
@@ -228,7 +228,7 @@
     line-height: 20px;
     padding: 12px 28px;
     border-radius: 2px;
-    background: var(--green);
+    background: var(--primary);
   }
 
   &.btn-purple {
