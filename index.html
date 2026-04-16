@@ -1,1164 +1,947 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="MySnacks.ae smart healthy vending machines across Dubai providing fresh fruits, salads, juices and diet snacks 24/7" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MySnacks.ae — Premium Vending Dubai</title>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #FF6B00;
+    --orange-light: #FF8C3A;
+    --orange-dark: #CC5500;
+    --orange-glow: rgba(255,107,0,0.18);
+    --black: #0A0A0A;
+    --off-black: #111111;
+    --card-bg: #161616;
+    --card-border: rgba(255,107,0,0.15);
+    --text: #F5F0E8;
+    --muted: #8A8070;
+    --white: #FFFFFF;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Cabinet Grotesk',sans-serif;
+    background:var(--black);
+    color:var(--text);
+    overflow-x:hidden;
+    cursor:none;
+  }
+  /* CUSTOM CURSOR */
+  .cursor{
+    position:fixed;width:12px;height:12px;
+    background:var(--orange);border-radius:50%;
+    pointer-events:none;z-index:9999;
+    transform:translate(-50%,-50%);
+    transition:transform 0.1s,width 0.3s,height 0.3s,background 0.3s;
+  }
+  .cursor-ring{
+    position:fixed;width:36px;height:36px;
+    border:1.5px solid var(--orange);border-radius:50%;
+    pointer-events:none;z-index:9998;
+    transform:translate(-50%,-50%);
+    transition:transform 0.18s cubic-bezier(.25,.46,.45,.94),width 0.3s,height 0.3s,border-color 0.3s;
+    opacity:0.7;
+  }
+  /* NAV */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:1.2rem 4rem;
+    background:rgba(10,10,10,0.7);
+    backdrop-filter:blur(20px);
+    border-bottom:1px solid rgba(255,107,0,0.08);
+    transition:background 0.3s;
+  }
+  .nav-logo{
+    font-family:'Clash Display',sans-serif;
+    font-size:1.5rem;font-weight:700;
+    color:var(--white);letter-spacing:-0.02em;
+  }
+  .nav-logo span{color:var(--orange);}
+  .nav-links{display:flex;gap:2.5rem;list-style:none;}
+  .nav-links a{
+    text-decoration:none;color:var(--muted);
+    font-size:0.875rem;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;
+    transition:color 0.2s;
+  }
+  .nav-links a:hover{color:var(--orange);}
+  .nav-cta{
+    background:var(--orange);color:var(--white);
+    padding:0.6rem 1.5rem;border-radius:100px;
+    font-size:0.875rem;font-weight:700;text-decoration:none;
+    transition:background 0.2s,transform 0.2s;
+    letter-spacing:0.02em;
+  }
+  .nav-cta:hover{background:var(--orange-light);transform:scale(1.04);}
 
-  <title>MySnacks.ae | Smart Healthy Vending Machines in Dubai</title>
+  /* HERO */
+  .hero{
+    min-height:100vh;display:flex;align-items:center;
+    position:relative;overflow:hidden;
+    padding:8rem 4rem 4rem;
+  }
+  .hero-bg{
+    position:absolute;inset:0;
+    background:radial-gradient(ellipse 60% 60% at 70% 50%, rgba(255,107,0,0.12) 0%, transparent 70%);
+    pointer-events:none;
+  }
+  .hero-grid{
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:4rem;align-items:center;
+    max-width:1400px;margin:0 auto;width:100%;
+    position:relative;z-index:1;
+  }
+  .hero-badge{
+    display:inline-flex;align-items:center;gap:0.5rem;
+    background:rgba(255,107,0,0.12);border:1px solid rgba(255,107,0,0.3);
+    border-radius:100px;padding:0.4rem 1rem;
+    font-size:0.75rem;font-weight:700;color:var(--orange);
+    letter-spacing:0.08em;text-transform:uppercase;
+    margin-bottom:1.5rem;
+    animation:fadeUp 0.8s ease both;
+  }
+  .hero-badge .dot{width:6px;height:6px;background:var(--orange);border-radius:50%;animation:pulse 2s infinite;}
+  .hero-title{
+    font-family:'Clash Display',sans-serif;
+    font-size:clamp(3rem,5vw,5.5rem);
+    font-weight:700;line-height:1.0;
+    letter-spacing:-0.03em;color:var(--white);
+    margin-bottom:1.5rem;
+    animation:fadeUp 0.8s 0.1s ease both;
+  }
+  .hero-title .accent{color:var(--orange);}
+  .hero-sub{
+    font-size:1.1rem;color:var(--muted);
+    line-height:1.7;max-width:480px;
+    margin-bottom:2.5rem;
+    animation:fadeUp 0.8s 0.2s ease both;
+  }
+  .hero-actions{
+    display:flex;gap:1rem;flex-wrap:wrap;
+    animation:fadeUp 0.8s 0.3s ease both;
+  }
+  .btn-primary{
+    background:var(--orange);color:var(--white);
+    padding:0.9rem 2rem;border-radius:100px;
+    font-size:1rem;font-weight:700;text-decoration:none;
+    display:inline-flex;align-items:center;gap:0.5rem;
+    transition:all 0.25s;letter-spacing:0.01em;
+  }
+  .btn-primary:hover{background:var(--orange-light);transform:translateY(-2px);box-shadow:0 12px 40px rgba(255,107,0,0.35);}
+  .btn-ghost{
+    border:1.5px solid rgba(255,255,255,0.15);color:var(--text);
+    padding:0.9rem 2rem;border-radius:100px;
+    font-size:1rem;font-weight:600;text-decoration:none;
+    display:inline-flex;align-items:center;gap:0.5rem;
+    transition:all 0.25s;
+  }
+  .btn-ghost:hover{border-color:var(--orange);color:var(--orange);}
+  /* Vending Machine Visual */
+  .hero-visual{
+    display:flex;justify-content:center;align-items:center;
+    position:relative;animation:fadeUp 0.8s 0.2s ease both;
+  }
+  .vm-frame{
+    position:relative;width:340px;max-width:100%;
+    filter:drop-shadow(0 40px 80px rgba(255,107,0,0.3));
+  }
+  .vm-frame svg{width:100%;height:auto;}
+  .vm-label-side{
+    position:absolute;left:-90px;top:50%;transform:translateY(-50%) rotate(-90deg);
+    font-family:'Clash Display',sans-serif;
+    font-size:0.75rem;font-weight:700;letter-spacing:0.18em;
+    color:var(--orange);text-transform:uppercase;white-space:nowrap;
+  }
+  .vm-label-front{
+    position:absolute;bottom:-36px;left:50%;transform:translateX(-50%);
+    font-family:'Clash Display',sans-serif;
+    font-size:0.85rem;font-weight:700;letter-spacing:0.12em;
+    color:var(--white);text-transform:uppercase;
+    background:var(--orange);padding:0.3rem 1.2rem;border-radius:100px;
+    white-space:nowrap;
+  }
+  .orbit{
+    position:absolute;border:1px solid rgba(255,107,0,0.1);border-radius:50%;
+    animation:spin linear infinite;pointer-events:none;
+  }
+  .orbit-1{width:420px;height:420px;top:50%;left:50%;transform:translate(-50%,-50%);animation-duration:30s;}
+  .orbit-2{width:320px;height:320px;top:50%;left:50%;transform:translate(-50%,-50%);animation-duration:20s;animation-direction:reverse;}
 
-  <!-- Fav Icon -->
-  <link rel="icon" type="image/x-icon" href="assets/imgs/logo/favicon.png" />
+  /* TICKER */
+  .ticker{
+    background:var(--orange);padding:0.7rem 0;overflow:hidden;
+    white-space:nowrap;position:relative;
+  }
+  .ticker-inner{
+    display:inline-flex;gap:3rem;animation:ticker 22s linear infinite;
+  }
+  .ticker-item{
+    font-family:'Clash Display',sans-serif;
+    font-size:0.85rem;font-weight:600;color:var(--white);
+    letter-spacing:0.06em;text-transform:uppercase;
+    display:inline-flex;align-items:center;gap:0.8rem;
+  }
+  .ticker-sep{color:rgba(255,255,255,0.5);}
 
+  /* MENU SECTION */
+  .section{padding:6rem 4rem;max-width:1400px;margin:0 auto;}
+  .section-label{
+    font-size:0.75rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
+    color:var(--orange);margin-bottom:0.8rem;
+  }
+  .section-title{
+    font-family:'Clash Display',sans-serif;
+    font-size:clamp(2.2rem,4vw,3.8rem);font-weight:700;
+    line-height:1.05;letter-spacing:-0.03em;color:var(--white);
+    margin-bottom:1rem;
+  }
+  .section-sub{color:var(--muted);font-size:1.05rem;line-height:1.7;max-width:500px;margin-bottom:3rem;}
 
-  <!-- Dependencies CSS Files -->
-  <link rel="stylesheet" href="assets/vandor/bootstrap/bootstrap.min.css" />
-  <link rel="stylesheet" href="assets/vandor/fontawesome/fontawesome-pro.min.css" />
-  <link rel="stylesheet" href="assets/vandor/swiper/swiper-bundle.min.css" />
-  <link rel="stylesheet" href="assets/vandor/menu/meanmenu.min.css" />
-  <link rel="stylesheet" href="assets/vandor/popup/magnific-popup.css" />
-  <link rel="stylesheet" href="assets/vandor/nice-select/nice-select.css" />
-  <link rel="stylesheet" href="assets/vandor/odometer/odometer-theme-default.css">
-  <link rel="stylesheet" href="assets/vandor/animation/aos.css">
+  .menu-grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    gap:1.5rem;
+  }
+  .menu-card{
+    background:var(--card-bg);
+    border:1px solid var(--card-border);
+    border-radius:20px;padding:1.8rem;
+    position:relative;overflow:hidden;
+    transition:all 0.3s cubic-bezier(.25,.46,.45,.94);
+    cursor:none;
+  }
+  .menu-card::before{
+    content:'';position:absolute;inset:0;
+    background:radial-gradient(ellipse at 50% 0%, rgba(255,107,0,0.08) 0%, transparent 70%);
+    opacity:0;transition:opacity 0.3s;
+  }
+  .menu-card:hover{
+    transform:translateY(-6px);
+    border-color:rgba(255,107,0,0.4);
+    box-shadow:0 20px 60px rgba(255,107,0,0.15);
+  }
+  .menu-card:hover::before{opacity:1;}
+  .menu-icon{
+    width:52px;height:52px;border-radius:14px;
+    background:rgba(255,107,0,0.12);
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.6rem;margin-bottom:1.2rem;
+  }
+  .menu-num{
+    position:absolute;top:1.5rem;right:1.5rem;
+    font-family:'Clash Display',sans-serif;
+    font-size:2.5rem;font-weight:700;color:rgba(255,107,0,0.08);
+  }
+  .menu-name{
+    font-family:'Clash Display',sans-serif;
+    font-size:1.2rem;font-weight:700;color:var(--white);
+    margin-bottom:0.5rem;
+  }
+  .menu-items{
+    font-size:0.875rem;color:var(--muted);line-height:1.6;
+  }
+  .menu-tag{
+    display:inline-block;background:rgba(255,107,0,0.1);
+    border:1px solid rgba(255,107,0,0.2);border-radius:100px;
+    color:var(--orange-light);font-size:0.7rem;font-weight:700;
+    letter-spacing:0.06em;text-transform:uppercase;
+    padding:0.25rem 0.75rem;margin-top:1rem;
+  }
 
-  <!-- Template Main CSS File -->
-  <link rel="stylesheet" href="assets/css/style.css" />
+  /* LOCATIONS */
+  .locations-section{
+    background:var(--off-black);padding:6rem 4rem;
+    border-top:1px solid rgba(255,107,0,0.08);
+    border-bottom:1px solid rgba(255,107,0,0.08);
+  }
+  .locations-inner{max-width:1400px;margin:0 auto;}
+  .locations-grid{
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:4rem;align-items:start;margin-top:3rem;
+  }
+  .location-list{display:flex;flex-direction:column;gap:1rem;}
+  .location-item{
+    display:flex;align-items:center;gap:1.2rem;
+    padding:1.2rem 1.5rem;
+    background:var(--card-bg);border:1px solid var(--card-border);
+    border-radius:14px;
+    transition:all 0.25s;cursor:none;
+  }
+  .location-item:hover{
+    border-color:rgba(255,107,0,0.4);
+    transform:translateX(6px);
+  }
+  .loc-pin{
+    width:40px;height:40px;min-width:40px;
+    background:rgba(255,107,0,0.12);border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.1rem;
+  }
+  .loc-name{font-weight:700;color:var(--white);font-size:0.95rem;margin-bottom:0.2rem;}
+  .loc-sub{font-size:0.8rem;color:var(--muted);}
+  /* Map placeholder */
+  .map-container{
+    background:var(--card-bg);border:1px solid var(--card-border);
+    border-radius:20px;overflow:hidden;
+    position:relative;min-height:420px;
+  }
+  .map-inner{
+    width:100%;height:420px;position:relative;
+    background:linear-gradient(135deg,#0f1a0f 0%,#0a1414 50%,#120a08 100%);
+    display:flex;align-items:center;justify-content:center;
+  }
+  /* Grid lines */
+  .map-inner::before{
+    content:'';position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(255,107,0,0.04) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,107,0,0.04) 1px,transparent 1px);
+    background-size:40px 40px;
+  }
+  .map-pins-svg{position:absolute;inset:0;width:100%;height:100%;}
+  .map-label{
+    font-family:'Clash Display',sans-serif;
+    color:rgba(255,107,0,0.15);font-size:3rem;font-weight:700;
+    letter-spacing:0.1em;text-transform:uppercase;
+    user-select:none;z-index:0;
+  }
+
+  /* STATS */
+  .stats-row{
+    display:grid;grid-template-columns:repeat(4,1fr);
+    gap:1.5rem;padding:4rem;max-width:1400px;margin:0 auto;
+  }
+  .stat-card{
+    background:var(--card-bg);border:1px solid var(--card-border);
+    border-radius:18px;padding:2rem;text-align:center;
+    transition:all 0.3s;
+  }
+  .stat-card:hover{border-color:rgba(255,107,0,0.3);}
+  .stat-num{
+    font-family:'Clash Display',sans-serif;
+    font-size:2.8rem;font-weight:700;color:var(--orange);
+    margin-bottom:0.3rem;
+  }
+  .stat-label{font-size:0.875rem;color:var(--muted);font-weight:500;}
+
+  /* HOW IT WORKS */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem;}
+  .step{
+    padding:2rem;background:var(--card-bg);border:1px solid var(--card-border);
+    border-radius:20px;position:relative;overflow:hidden;
+    transition:all 0.3s;
+  }
+  .step:hover{border-color:rgba(255,107,0,0.3);transform:translateY(-4px);}
+  .step-num{
+    font-family:'Clash Display',sans-serif;
+    font-size:5rem;font-weight:700;color:rgba(255,107,0,0.07);
+    position:absolute;top:-0.5rem;right:1rem;line-height:1;
+  }
+  .step-icon{font-size:2rem;margin-bottom:1rem;}
+  .step-title{font-family:'Clash Display',sans-serif;font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:0.5rem;}
+  .step-desc{font-size:0.9rem;color:var(--muted);line-height:1.6;}
+
+  /* CONTACT */
+  .contact-section{padding:6rem 4rem;max-width:1400px;margin:0 auto;}
+  .contact-grid{
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:4rem;align-items:start;margin-top:3rem;
+  }
+  .contact-card{
+    background:var(--card-bg);border:1px solid var(--card-border);
+    border-radius:24px;padding:2.5rem;
+  }
+  .contact-method{
+    display:flex;align-items:center;gap:1.2rem;
+    padding:1.2rem 0;
+    border-bottom:1px solid rgba(255,255,255,0.05);
+  }
+  .contact-method:last-child{border-bottom:none;}
+  .c-icon{
+    width:48px;height:48px;min-width:48px;
+    background:rgba(255,107,0,0.1);border:1px solid rgba(255,107,0,0.2);
+    border-radius:12px;display:flex;align-items:center;justify-content:center;
+    font-size:1.2rem;
+  }
+  .c-label{font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;font-weight:600;margin-bottom:0.2rem;}
+  .c-value{font-size:1rem;font-weight:700;color:var(--white);}
+  .c-value a{color:var(--orange-light);text-decoration:none;}
+  /* Form */
+  .form-group{margin-bottom:1.2rem;}
+  .form-group label{display:block;font-size:0.8rem;font-weight:600;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.5rem;}
+  .form-group input,.form-group textarea,.form-group select{
+    width:100%;background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.08);border-radius:12px;
+    padding:0.85rem 1rem;color:var(--white);
+    font-family:'Cabinet Grotesk',sans-serif;font-size:0.95rem;
+    transition:border-color 0.2s;outline:none;
+  }
+  .form-group input:focus,.form-group textarea:focus,.form-group select:focus{
+    border-color:var(--orange);
+  }
+  .form-group textarea{resize:vertical;min-height:100px;}
+  .form-group select option{background:var(--off-black);}
+  .submit-btn{
+    width:100%;background:var(--orange);color:var(--white);
+    border:none;border-radius:100px;padding:1rem;
+    font-family:'Cabinet Grotesk',sans-serif;
+    font-size:1rem;font-weight:700;letter-spacing:0.02em;
+    cursor:none;transition:all 0.25s;
+  }
+  .submit-btn:hover{background:var(--orange-light);box-shadow:0 12px 40px rgba(255,107,0,0.4);}
+
+  /* FOOTER */
+  footer{
+    border-top:1px solid rgba(255,107,0,0.08);
+    padding:3rem 4rem;display:flex;
+    align-items:center;justify-content:space-between;
+  }
+  .footer-logo{font-family:'Clash Display',sans-serif;font-size:1.2rem;font-weight:700;color:var(--white);}
+  .footer-logo span{color:var(--orange);}
+  .footer-copy{font-size:0.8rem;color:var(--muted);}
+  .footer-links{display:flex;gap:2rem;}
+  .footer-links a{font-size:0.8rem;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+  .footer-links a:hover{color:var(--orange);}
+
+  /* ANIMATIONS */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(0.8);}}
+  @keyframes spin{from{transform:translate(-50%,-50%) rotate(0deg);}to{transform:translate(-50%,-50%) rotate(360deg);}}
+  @keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-16px);}}
+  @keyframes pinPulse{0%,100%{r:6;opacity:1;}50%{r:10;opacity:0.5;}}
+
+  .float-anim{animation:float 5s ease-in-out infinite;}
+  
+  /* Scroll reveal */
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s cubic-bezier(.25,.46,.45,.94),transform 0.7s cubic-bezier(.25,.46,.45,.94);}
+  .reveal.visible{opacity:1;transform:none;}
+
+  @media(max-width:900px){
+    nav{padding:1rem 1.5rem;}
+    .nav-links{display:none;}
+    .hero,.section,.contact-section,.locations-section>*{padding-left:1.5rem;padding-right:1.5rem;}
+    .hero-grid,.locations-grid,.contact-grid{grid-template-columns:1fr;}
+    .stats-row{grid-template-columns:repeat(2,1fr);padding:2rem 1.5rem;}
+    .steps{grid-template-columns:1fr;}
+    .vm-label-side{display:none;}
+    footer{flex-direction:column;gap:1.5rem;text-align:center;}
+  }
+</style>
 </head>
-
 <body>
-  <div class="loader-wrap">
-    <svg viewBox="0 0 1000 1000" preserveAspectRatio="none">
-      <path id="svg" d="M0,1005S175,995,500,995s500,5,500,5V0H0Z"></path>
-    </svg>
 
-    <div class="loader-wrap-heading">
-      <div class="load-text">
-<span>m</span><span>y</span><span>s</span><span>n</span><span>a</span><span>c</span><span>k</span><span>s</span><span>.</span><span>a</span><span>e</span>
-</div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">my<span>snacks</span>.ae</div>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#locations">Locations</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get a Machine ↗</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid">
+    <div class="hero-content">
+      <div class="hero-badge"><span class="dot"></span>Now in Dubai</div>
+      <h1 class="hero-title">Fresh Snacks,<br><span class="accent">Zero Effort.</span><br>Dubai Delivered.</h1>
+      <p class="hero-sub">Premium vending machines stocked with fresh fruits, juices, smoothies & healthy bars — placed in top offices & prime locations across Dubai.</p>
+      <div class="hero-actions">
+        <a href="#locations" class="btn-primary">📍 Find a Machine</a>
+        <a href="#contact" class="btn-ghost">Install at Your Office →</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="orbit orbit-1"></div>
+      <div class="orbit orbit-2"></div>
+      <div class="vm-frame float-anim">
+        <!-- Vending Machine SVG illustration -->
+        <svg viewBox="0 0 300 540" xmlns="http://www.w3.org/2000/svg">
+          <!-- Machine body -->
+          <rect x="20" y="10" width="260" height="510" rx="14" fill="#FF6B00"/>
+          <!-- Dark front panel -->
+          <rect x="30" y="20" width="200" height="460" rx="8" fill="#0D0D0D"/>
+          <!-- Glass window -->
+          <rect x="36" y="28" width="188" height="320" rx="6" fill="#111" stroke="rgba(255,107,0,0.3)" stroke-width="1"/>
+          <!-- Shelf 1 - chips bags -->
+          <rect x="38" y="84" width="184" height="2" fill="rgba(255,107,0,0.2)"/>
+          <rect x="46" y="52" width="28" height="32" rx="4" fill="#E8A020"/>
+          <rect x="82" y="52" width="28" height="32" rx="4" fill="#C0392B"/>
+          <rect x="118" y="52" width="28" height="32" rx="4" fill="#27AE60"/>
+          <rect x="154" y="52" width="28" height="32" rx="4" fill="#8E44AD"/>
+          <rect x="190" y="52" width="28" height="32" rx="4" fill="#2980B9"/>
+          <!-- Shelf 2 - bars -->
+          <rect x="38" y="152" width="184" height="2" fill="rgba(255,107,0,0.2)"/>
+          <rect x="46" y="118" width="28" height="32" rx="4" fill="#F39C12"/>
+          <rect x="82" y="118" width="28" height="32" rx="4" fill="#1ABC9C"/>
+          <rect x="118" y="118" width="28" height="32" rx="4" fill="#E74C3C"/>
+          <rect x="154" y="118" width="28" height="32" rx="4" fill="#9B59B6"/>
+          <rect x="190" y="118" width="28" height="32" rx="4" fill="#3498DB"/>
+          <!-- Shelf 3 - snack packs -->
+          <rect x="38" y="220" width="184" height="2" fill="rgba(255,107,0,0.2)"/>
+          <rect x="48" y="185" width="36" height="34" rx="6" fill="#F1C40F" opacity="0.9"/>
+          <rect x="92" y="185" width="36" height="34" rx="6" fill="#E67E22" opacity="0.9"/>
+          <rect x="136" y="185" width="36" height="34" rx="6" fill="#2ECC71" opacity="0.9"/>
+          <rect x="180" y="185" width="36" height="34" rx="6" fill="#E74C3C" opacity="0.9"/>
+          <!-- Shelf 4 - fruits -->
+          <rect x="38" y="288" width="184" height="2" fill="rgba(255,107,0,0.2)"/>
+          <!-- Apples -->
+          <circle cx="65" cy="260" r="14" fill="#C0392B"/>
+          <circle cx="95" cy="260" r="14" fill="#E74C3C"/>
+          <circle cx="125" cy="260" r="14" fill="#F39C12"/>
+          <!-- Banana -->
+          <path d="M145 270 Q165 250 185 265" stroke="#F1C40F" stroke-width="12" fill="none" stroke-linecap="round"/>
+          <!-- Oranges -->
+          <circle cx="200" cy="260" r="12" fill="#FF6B00"/>
+          <circle cx="218" cy="263" r="11" fill="#FF8C3A"/>
+          <!-- Shelf 5 - bottles -->
+          <rect x="38" y="342" width="184" height="2" fill="rgba(255,107,0,0.2)"/>
+          <rect x="55" y="300" width="20" height="42" rx="6" fill="#3498DB" opacity="0.8"/>
+          <rect x="82" y="300" width="20" height="42" rx="6" fill="#27AE60" opacity="0.8"/>
+          <rect x="109" y="300" width="20" height="42" rx="6" fill="#E74C3C" opacity="0.8"/>
+          <rect x="136" y="300" width="20" height="42" rx="6" fill="#F39C12" opacity="0.8"/>
+          <rect x="163" y="300" width="20" height="42" rx="6" fill="#9B59B6" opacity="0.8"/>
+          <rect x="190" y="300" width="20" height="42" rx="6" fill="#1ABC9C" opacity="0.8"/>
+          <!-- Control panel area -->
+          <rect x="240" y="160" width="38" height="120" rx="8" fill="#1A1A1A"/>
+          <!-- Screen -->
+          <rect x="244" y="166" width="30" height="22" rx="4" fill="#0D2436"/>
+          <rect x="246" y="168" width="26" height="18" rx="3" fill="#1A3A50"/>
+          <!-- Keypad -->
+          <rect x="246" y="196" width="8" height="8" rx="2" fill="#2A2A2A"/>
+          <rect x="258" y="196" width="8" height="8" rx="2" fill="#2A2A2A"/>
+          <rect x="246" y="208" width="8" height="8" rx="2" fill="#2A2A2A"/>
+          <rect x="258" y="208" width="8" height="8" rx="2" fill="#FF6B00"/>
+          <rect x="246" y="220" width="20" height="8" rx="2" fill="#1A1A1A" stroke="#FF6B00" stroke-width="1"/>
+          <!-- Card slot -->
+          <rect x="244" y="244" width="30" height="6" rx="3" fill="#2A2A2A"/>
+          <!-- Dispenser slot -->
+          <rect x="36" y="356" width="192" height="28" rx="4" fill="#0A0A0A"/>
+          <rect x="46" y="362" width="172" height="16" rx="3" fill="#151515"/>
+          <!-- Brand text on machine -->
+          <text x="128" y="408" text-anchor="middle" fill="rgba(255,107,0,0.9)" font-family="sans-serif" font-size="10" font-weight="bold" letter-spacing="2">mysnacks.ae</text>
+          <!-- Bottom feet -->
+          <rect x="50" y="506" width="40" height="12" rx="4" fill="#CC5500"/>
+          <rect x="210" y="506" width="40" height="12" rx="4" fill="#CC5500"/>
+        </svg>
+        <div class="vm-label-side">mysnacks.ae</div>
+        <div class="vm-label-front">mysnacks.ae</div>
+      </div>
     </div>
   </div>
+</section>
 
-  <!-- Sroll to top -->
-  <div class="progress-wrap">
-    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
-      <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"></path>
-    </svg>
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">🍓 Fresh Fruits <span class="ticker-sep">•</span></span>
+    <span class="ticker-item">🥤 Cold Press Juices <span class="ticker-sep">•</span></span>
+    <span class="ticker-item">🥤 Smoothies <span class="ticker-sep">•</span></span>
+    <span class="ticker-item">🍫 Healthy Bars <span class="ticker-sep">•</span></span>
+    <span class="ticker-item">💧 Water Bottles <span class="ticker-sep">•</span></span>
+    <span class="ticker-item">📍 Prime Dubai Locations <span class="ticker-sep">•</span></span>
+    <span class="ticker-item">🍓 Fresh Fruits <span class="ticker-sep">•</span></span>
+    <span class="ticker-item">🥤 Cold Press Juices <span class="ticker-sep">•</span></span>
+    <span class="ticker-item">🥤 Smoothies <span class="ticker-sep">•</span></span>
+    <span class="ticker-item">🍫 Healthy Bars <span class="ticker-sep">•</span></span>
+    <span class="ticker-item">💧 Water Bottles <span class="ticker-sep">•</span></span>
+    <span class="ticker-item">📍 Prime Dubai Locations <span class="ticker-sep">•</span></span>
   </div>
+</div>
 
-  <!-- side toggle start -->
-  <aside class="fix">
-    <div class="side-info">
-      <div class="side-info-content">
-        <div class="offset-widget offset-header">
-          <div class="offset-logo">
-            <a href="index.html">
-              <img class="show-light" src="assets/imgs/logo/logo.png" alt="site logo" />
-            </a>
+<!-- STATS -->
+<div class="stats-row">
+  <div class="stat-card reveal"><div class="stat-num" data-count="25">0</div><div class="stat-label">Locations in Dubai</div></div>
+  <div class="stat-card reveal"><div class="stat-num" data-count="5">0</div><div class="stat-label">Menu Categories</div></div>
+  <div class="stat-card reveal"><div class="stat-num" data-count="1000">0</div><div class="stat-label">Happy Customers/mo</div></div>
+  <div class="stat-card reveal"><div class="stat-num" data-count="24">0</div><div class="stat-label">Hours Available</div></div>
+</div>
+
+<!-- MENU -->
+<section class="section" id="menu">
+  <div class="section-label">What's Inside</div>
+  <h2 class="section-title">Only the Good Stuff</h2>
+  <p class="section-sub">Every machine is stocked with hand-picked fresh items — no junk, just fuel that keeps you going.</p>
+  <div class="menu-grid">
+    <div class="menu-card reveal">
+      <div class="menu-num">01</div>
+      <div class="menu-icon">🍓</div>
+      <div class="menu-name">Fresh Cut Fruits</div>
+      <div class="menu-items">Strawberry · Blueberry · Red Cherry · Mango · Green Grapes — freshly cut daily</div>
+      <div class="menu-tag">Daily Fresh</div>
+    </div>
+    <div class="menu-card reveal">
+      <div class="menu-num">02</div>
+      <div class="menu-icon">🥤</div>
+      <div class="menu-name">Fresh Juice Blends</div>
+      <div class="menu-items">Orange + Mango + Apple + Carrot + Watermelon — cold-pressed to order</div>
+      <div class="menu-tag">Cold Pressed</div>
+    </div>
+    <div class="menu-card reveal">
+      <div class="menu-num">03</div>
+      <div class="menu-icon">🥛</div>
+      <div class="menu-name">Smoothies</div>
+      <div class="menu-items">Strawberry Smoothie with Mixed Berries — thick, creamy, no sugar added</div>
+      <div class="menu-tag">No Added Sugar</div>
+    </div>
+    <div class="menu-card reveal">
+      <div class="menu-num">04</div>
+      <div class="menu-icon">🍫</div>
+      <div class="menu-name">Healthy Snack Bars</div>
+      <div class="menu-items">Nakd Bar & Larabar — plant-based, gluten-free, no refined sugar</div>
+      <div class="menu-tag">Plant Based</div>
+    </div>
+    <div class="menu-card reveal" style="grid-column:span 1;">
+      <div class="menu-num">05</div>
+      <div class="menu-icon">💧</div>
+      <div class="menu-name">Water Bottle</div>
+      <div class="menu-items">Pure still water — always chilled, always ready</div>
+      <div class="menu-tag">Chilled</div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATIONS -->
+<div class="locations-section" id="locations">
+  <div class="locations-inner">
+    <div class="section-label">Where We Are</div>
+    <h2 class="section-title">Prime Dubai Spots</h2>
+    <p class="section-sub">Our machines are placed in the city's most active offices, towers, and hubs — right where you need them.</p>
+    <div class="locations-grid">
+      <div class="location-list">
+        <div class="location-item reveal">
+          <div class="loc-pin">📍</div>
+          <div>
+            <div class="loc-name">DIFC — Dubai International Financial Centre</div>
+            <div class="loc-sub">Gate Village & Index Tower Lobbies</div>
           </div>
-          <button id="side-info-close" class="side-info-close">
-            <i class="fas fa-times"></i>
-          </button>
         </div>
-        <div class="mobile-menu d-xl-none fix"></div>
-        <div class="offset-button">
-          <a href="contact.html" class="rr-btn">
-            <span class="btn-wrap">
-              <span class="text-one">Let's Talk</span>
-              <span class="text-two">Let's Talk</span>
-            </span>
-          </a>
+        <div class="location-item reveal">
+          <div class="loc-pin">📍</div>
+          <div>
+            <div class="loc-name">Business Bay</div>
+            <div class="loc-sub">Multiple corporate towers & co-working spaces</div>
+          </div>
         </div>
-        <div class="offset-widget-box">
-          <h2 class="title">Contact US</h2>
-          <div class="contact-meta">
-            <div class="contact-item">
-              <span class="icon"><i class="fa-solid fa-location-dot"></i></span>
-              <span class="text">3891 Ranchview Dr. Richardson</span>
-            </div>
-            <div class="contact-item">
-              <span class="icon"><i class="fa-solid fa-envelope"></i></span>
-              <span class="text"><a href="mailto:hello@Archidex.com">hello@Archidex.com</a></span>
-            </div>
-            <div class="contact-item">
-              <span class="icon"><i class="fa-solid fa-phone"></i></span>
-              <span class="text"><a href="tel:(505)555-0125">(505) 555-0125</a></span>
-            </div>
+        <div class="location-item reveal">
+          <div class="loc-pin">📍</div>
+          <div>
+            <div class="loc-name">Dubai Media City</div>
+            <div class="loc-sub">Hub71 & media campus buildings</div>
+          </div>
+        </div>
+        <div class="location-item reveal">
+          <div class="loc-pin">📍</div>
+          <div>
+            <div class="loc-name">Downtown Dubai</div>
+            <div class="loc-sub">Emaar Square office complex</div>
+          </div>
+        </div>
+        <div class="location-item reveal">
+          <div class="loc-pin">📍</div>
+          <div>
+            <div class="loc-name">JLT — Jumeirah Lakes Towers</div>
+            <div class="loc-sub">Cluster D, G & X towers</div>
+          </div>
+        </div>
+        <div class="location-item reveal">
+          <div class="loc-pin">📍</div>
+          <div>
+            <div class="loc-name">Dubai Silicon Oasis</div>
+            <div class="loc-sub">Tech hub & startup campus floors</div>
           </div>
         </div>
       </div>
-    </div>
-  </aside>
-  <div class="offcanvas-overlay"></div>
-  <!-- side toggle end -->
-
-  <div class="has-smooth" id="has_smooth"></div>
-  <div id="smooth-wrapper">
-    <div id="smooth-content">
-      <!-- Header area start -->
-      <header class="header-area-1">
-        <div class="header-main">
-          <div class="container rr-container-1800">
-            <div class="header-area-1__inner">
-              <div class="header__logo">
-                <a href="index.html">
-                  <img src="assets/imgs/logo/logo.png" class="normal-logo" alt="Site Logo" />
-                </a>
-              </div>
-              <div class="header__nav">
-                <nav class="main-menu">
-                  <ul>
-                    <li class="menu-item-has-children">
-                      <a href="#">Home</a>
-                      <ul class="dp-menu column-2">
-                        <li>
-                          <a href="index.html">Smart Healthy Vending</a>
-                        </li>
-                        <li>
-                          <a href="index-2.html">Ai Content</a>
-                        </li>
-                        <li>
-                          <a href="index-3.html">CRM</a>
-                        </li>
-                        <li>
-                          <a href="index-4.html">App landing </a>
-                        </li>
-                        <li>
-                          <a href="index-5.html">Data Analytics </a>
-                        </li>
-                      </ul>
-                    </li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li class="menu-item-has-children">
-                      <a href="#">Service</a>
-                      <ul class="dp-menu">
-                        <li><a href="service.html"> Services</a></li>
-                        <li><a href="service-details.html"> Services Details</a></li>
-                      </ul>
-                    </li>
-                    <li class="menu-item-has-children">
-                      <a href="#">Blog</a>
-                      <ul class="dp-menu">
-                        <li><a href="blog.html">Blog</a></li>
-                        <li><a href="blog-standard.html">Blog Standard</a></li>
-                        <li><a href="blog-details.html">Blog Details</a></li>
-                      </ul>
-                    </li>
-                    <li class="menu-item-has-children">
-                      <a href="#">Pages</a>
-                      <ul class="dp-menu">
-                        <li><a href="pricing.html">pricing</a></li>
-                        <li><a href="faq.html">Faq</a></li>
-                        <li><a href="cart.html">cart Page</a></li>
-                        <li><a href="checkout.html">checkout Page</a></li>
-                        <li><a href="shop.html">shop Page</a></li>
-                        <li><a href="shop-details.html">shop Details Page </a></li>
-                        <li><a href="sing-in.html">Sing In Page </a></li>
-                        <li><a href="sing-up.html">Sing Up Page </a></li>
-                        <li><a href="404.html">Error </a></li>
-                      </ul>
-                    </li>
-                    <li><a href="contact.html">contact us</a></li>
-                  </ul>
-                </nav>
-              </div>
-              <div class="header-right">
-
-                <div class="search-wrap">
-                  <button class="search"><i class="fa-regular fa-magnifying-glass"></i></button>
-                </div>
-                <a href="contact.html" class="rr-btn-green">
-                  <span class="btn-wrap">
-                    <span class="text-one">Find a Machine</span>
-                    <span class="text-two">Find a Machine</span>
-                  </span>
-                </a>
-
-                <div class="header__navicon d-xl-none">
-                  <div class="side-toggle">
-                    <a class="bar-icon" href="javascript:void(0)">
-                      <span></span>
-                      <span></span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+      <!-- Map -->
+      <div class="map-container reveal">
+        <div class="map-inner">
+          <span class="map-label">DUBAI</span>
+          <svg class="map-pins-svg" viewBox="0 0 400 420" xmlns="http://www.w3.org/2000/svg">
+            <!-- Decorative roads -->
+            <line x1="60" y1="210" x2="340" y2="210" stroke="rgba(255,107,0,0.06)" stroke-width="8"/>
+            <line x1="200" y1="60" x2="200" y2="360" stroke="rgba(255,107,0,0.06)" stroke-width="8"/>
+            <path d="M60 140 Q200 100 340 160" stroke="rgba(255,107,0,0.05)" stroke-width="6" fill="none"/>
+            <!-- Pins -->
+            <!-- DIFC -->
+            <g transform="translate(230,180)">
+              <circle r="22" fill="rgba(255,107,0,0.12)" stroke="rgba(255,107,0,0.3)" stroke-width="1"/>
+              <circle r="6" fill="#FF6B00"/>
+              <circle r="22" fill="none" stroke="rgba(255,107,0,0.2)" stroke-width="1">
+                <animate attributeName="r" values="8;22;8" dur="2.5s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" values="0.8;0;0.8" dur="2.5s" repeatCount="indefinite"/>
+              </circle>
+              <text x="0" y="36" text-anchor="middle" fill="rgba(255,107,0,0.8)" font-size="9" font-family="sans-serif" font-weight="700">DIFC</text>
+            </g>
+            <!-- Business Bay -->
+            <g transform="translate(200,220)">
+              <circle r="20" fill="rgba(255,107,0,0.12)" stroke="rgba(255,107,0,0.3)" stroke-width="1"/>
+              <circle r="6" fill="#FF6B00"/>
+              <circle r="20" fill="none" stroke="rgba(255,107,0,0.2)" stroke-width="1">
+                <animate attributeName="r" values="8;20;8" dur="3s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" values="0.8;0;0.8" dur="3s" repeatCount="indefinite"/>
+              </circle>
+              <text x="0" y="34" text-anchor="middle" fill="rgba(255,107,0,0.8)" font-size="8" font-family="sans-serif" font-weight="700">B.BAY</text>
+            </g>
+            <!-- Media City -->
+            <g transform="translate(120,160)">
+              <circle r="18" fill="rgba(255,107,0,0.12)" stroke="rgba(255,107,0,0.3)" stroke-width="1"/>
+              <circle r="5" fill="#FF6B00"/>
+              <circle r="18" fill="none" stroke="rgba(255,107,0,0.2)" stroke-width="1">
+                <animate attributeName="r" values="7;18;7" dur="2s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" values="0.8;0;0.8" dur="2s" repeatCount="indefinite"/>
+              </circle>
+              <text x="0" y="32" text-anchor="middle" fill="rgba(255,107,0,0.8)" font-size="8" font-family="sans-serif" font-weight="700">DMC</text>
+            </g>
+            <!-- Downtown -->
+            <g transform="translate(260,240)">
+              <circle r="18" fill="rgba(255,107,0,0.12)" stroke="rgba(255,107,0,0.3)" stroke-width="1"/>
+              <circle r="5" fill="#FF8C3A"/>
+              <circle r="18" fill="none" stroke="rgba(255,107,0,0.15)" stroke-width="1">
+                <animate attributeName="r" values="7;18;7" dur="3.5s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" values="0.8;0;0.8" dur="3.5s" repeatCount="indefinite"/>
+              </circle>
+              <text x="0" y="32" text-anchor="middle" fill="rgba(255,107,0,0.8)" font-size="8" font-family="sans-serif" font-weight="700">DT</text>
+            </g>
+            <!-- JLT -->
+            <g transform="translate(100,240)">
+              <circle r="16" fill="rgba(255,107,0,0.12)" stroke="rgba(255,107,0,0.3)" stroke-width="1"/>
+              <circle r="5" fill="#FF8C3A"/>
+              <circle r="16" fill="none" stroke="rgba(255,107,0,0.15)" stroke-width="1">
+                <animate attributeName="r" values="7;16;7" dur="2.8s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" values="0.8;0;0.8" dur="2.8s" repeatCount="indefinite"/>
+              </circle>
+              <text x="0" y="30" text-anchor="middle" fill="rgba(255,107,0,0.8)" font-size="8" font-family="sans-serif" font-weight="700">JLT</text>
+            </g>
+            <!-- DSO -->
+            <g transform="translate(310,190)">
+              <circle r="16" fill="rgba(255,107,0,0.12)" stroke="rgba(255,107,0,0.3)" stroke-width="1"/>
+              <circle r="5" fill="#FF8C3A"/>
+              <circle r="16" fill="none" stroke="rgba(255,107,0,0.15)" stroke-width="1">
+                <animate attributeName="r" values="7;16;7" dur="4s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" values="0.8;0;0.8" dur="4s" repeatCount="indefinite"/>
+              </circle>
+              <text x="0" y="30" text-anchor="middle" fill="rgba(255,107,0,0.8)" font-size="8" font-family="sans-serif" font-weight="700">DSO</text>
+            </g>
+          </svg>
         </div>
-      </header>
-      <!-- Header area end -->
-      <main>
-
-        <section class="hero">
-          <div class="hero__inner " data-background="assets/imgs/home-1/hero/bg.png">
-            <img class="shape-6" src="assets/imgs/home-1/hero/shape.png" alt="image">
-            <div class="container rr-container-1350">
-              <div class="row">
-                <div class="col-xl-6">
-                  <div class="hero__media">
-                    <img class="shape-1 " data-aos="zoom-in" data-aos-duration="900"
-                      src="assets/imgs/home-1/hero/phone.png" alt="image">
-                    <img class="shape-2 shape-animaiton1" src="assets/imgs/home-1/hero/shape-2.png" alt="image">
-                    <img class="shape-3 shape-animaiton1" src="assets/imgs/home-1/hero/shape-3.png" alt="image">
-                    <img class="shape-4 shape-animaiton1" src="assets/imgs/home-1/hero/shape-4.png" alt="image">
-                    <img class="shape-5 shape-animaiton1" src="assets/imgs/home-1/hero/card.png" alt="image">
-                  </div>
-                </div>
-                <div class="col-xl-6">
-                  <div class="hero__content" data-aos="fade-right" data-aos-duration="900">
-                    <div class="hero__content__author">
-                      <ul>
-                        <li><img src="assets/imgs/home-1/hero/author-1.png" alt="img"></li>
-                        <li><img src="assets/imgs/home-1/hero/author-2.png" alt="img"></li>
-                        <li><img src="assets/imgs/home-1/hero/author-3.png" alt="img"></li>
-                      </ul>
-                      <p>Installed across offices, gyms & hospitals in Dubai</p>
-                    </div>
-                    <h1 class="title rr-title-anim-2">Fresh Healthy Food — Anytime Anywhere in Dubai</h1>
-                    <p class="desc">Enjoy fresh fruits, juices, smoothies and healthy snacks from MySnacks smart vending machines placed across offices, gyms, hotels and public spaces in Dubai — quick, hygienic and available 24/7.</p>
-
-                    <div class="hero__content-wrap">
-                      <a href="contact.html" class="rr-btn-green">
-                        <span class="btn-wrap">
-                          <span class="text-one">Find a Machine</span>
-                          <span class="text-two">Find a Machine</span>
-                        </span>
-                      </a>
-                      <a href="service.html" class="rr-btn-green green-2">
-                        <span class="btn-wrap">
-                          <span class="text-one">View Products</span>
-                          <span class="text-two">View Products</span>
-                        </span>
-                      </a>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="brand-1 section-spacing-top-100">
-          <div class="container rr-container-1350">
-            <div class="section-title__wrapper">
-              <h2 class="title rr-title-anim-1">Installed Across Dubai’s Most Active Locations</h2>
-            </div>
-            <div class="swiper brand-1__active">
-              <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                  <div class="brand-1__item">
-                    <img src="assets/imgs/home-1/brand/brand-1.png" alt="image">
-                  </div>
-                </div>
-                <div class="swiper-slide">
-                  <div class="brand-1__item">
-                    <img src="assets/imgs/home-1/brand/brand-2.png" alt="image">
-                  </div>
-                </div>
-                <div class="swiper-slide">
-                  <div class="brand-1__item">
-                    <img src="assets/imgs/home-1/brand/brand-3.png" alt="image">
-                  </div>
-                </div>
-                <div class="swiper-slide">
-                  <div class="brand-1__item">
-                    <img src="assets/imgs/home-1/brand/brand-4.png" alt="image">
-                  </div>
-                </div>
-                <div class="swiper-slide">
-                  <div class="brand-1__item">
-                    <img src="assets/imgs/home-1/brand/brand-5.png" alt="image">
-                  </div>
-                </div>
-                <div class="swiper-slide">
-                  <div class="brand-1__item">
-                    <img src="assets/imgs/home-1/brand/brand-1.png" alt="image">
-                  </div>
-                </div>
-                <div class="swiper-slide">
-                  <div class="brand-1__item">
-                    <img src="assets/imgs/home-1/brand/brand-2.png" alt="image">
-                  </div>
-                </div>
-                <div class="swiper-slide">
-                  <div class="brand-1__item">
-                    <img src="assets/imgs/home-1/brand/brand-3.png" alt="image">
-                  </div>
-                </div>
-                <div class="swiper-slide">
-                  <div class="brand-1__item">
-                    <img src="assets/imgs/home-1/brand/brand-4.png" alt="image">
-                  </div>
-                </div>
-                <div class="swiper-slide">
-                  <div class="brand-1__item">
-                    <img src="assets/imgs/home-1/brand/brand-5.png" alt="image">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="features-1 section-spacing-top-120 rr-ov-hidden">
-          <div class="container rr-container-1350">
-            <div class="row">
-              <div class="col-xl-8">
-                <div class="features-1">
-                  <div class="features-1__content" data-aos="fade-right" data-aos-duration="900">
-                    <div class="section-title__wrapper">
-                      <h2 class="sub-title">Smart Vending System</h2>
-                      <h2 class="title rr-title-anim-1">Fresh & Healthy Anytime <br> with Smart Vending System</h2>
-                      <p class="desc">Smart Vending System simplifies temperature‑controlled vending system keeps fruits crisp, juices fresh and snacks hygienic.</p>
-
-                      <a href="about.html" class="rr-btn-green">
-                        <span class="btn-wrap">
-                          <span class="text-one">Learn More</span>
-                          <span class="text-two">Learn More</span>
-                        </span>
-                      </a>
-                    </div>
-                    <div class="features-1__shape-1 shape-animaiton1" data-aos="fade-down-left" data-aos-duration="900">
-                      <img src="assets/imgs/home-1/features/hand-shape.png" alt="image">
-                    </div>
-                    <div class="features-1__shape-2 rotate"><img src="assets/imgs/home-1/features/line-shape.png"
-                        alt="image">
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-4">
-                <div class="features-1__wrapper">
-                  <div class="features-1__item" data-aos="fade-up" data-aos-duration="500">
-                    <span><img src="assets/imgs/home-1/features/icon-1.png" alt="image"></span>
-                    <div class="text">
-                      <h2 class="title">Temperature Controlled Storage</h2>
-                      <p>End-to-end encryption and fraud protection</p>
-                    </div>
-                  </div>
-                  <div class="features-1__item" data-aos="fade-up" data-aos-duration="700">
-                    <span><img src="assets/imgs/home-1/features/icon-2.png" alt="image"></span>
-                    <div class="text">
-                      <h2 class="title">Installed Across Dubai</h2>
-                      <p>Accept payments in multiple currencies worldwide</p>
-                    </div>
-                  </div>
-                  <div class="features-1__item" data-aos="fade-up" data-aos-duration="900">
-                    <span><img src="assets/imgs/home-1/features/icon-3.png" alt="image"></span>
-                    <div class="text">
-                      <h2 class="title">Cashless Easy Payment</h2>
-                      <p>Credit cards, digital wallets, bank transfers & more</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="service rr-bg-gray section-spacing rr-ov-hidden">
-          <div class="container rr-container-1350">
-            <div class="section-title__wrapper text-center" data-aos="fade-up" data-aos-duration="700">
-              <h2 class="sub-title">Our Healthy Products</h2>
-              <h2 class="title rr-title-anim-1">Fresh Daily Essentials</h2>
-            </div>
-            <div class="swiper service-slide__active" data-aos="fade-up" data-aos-duration="900">
-              <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                  <div class="service__item">
-                    <span class="icon"><img src="assets/imgs/home-1/service/icon-1.png" alt="image"></span><img src="assets/imgs/demo/demo1.jpg" style="width:100%;border-radius:10px;margin-top:10px">
-                    <h3 class="title"><a href="service-details.html">Fresh Cut Fruits</a></h3>
-                    <p class="desc">Prepared fresh daily and stocked hygienically.</p>
-                    <span class="service">Service _ 01</span>
-                  </div>
-                </div>
-                <div class="swiper-slide">
-                  <div class="service__item">
-                    <span class="icon"><img src="assets/imgs/home-1/service/icon-2.png" alt="image"></span><img src="assets/imgs/demo/demo2.jpg" style="width:100%;border-radius:10px;margin-top:10px">
-                    <h3 class="title"><a href="service-details.html">Fresh Juices & Smoothies</a></h3>
-                    <p class="desc">Cold pressed juices & natural smoothies.</p>
-                    <span class="service">Service _ 02</span>
-                  </div>
-                </div>
-                <div class="swiper-slide">
-                  <div class="service__item">
-                    <span class="icon"><img src="assets/imgs/home-1/service/icon-3.png" alt="image"></span><img src="assets/imgs/demo/demo3.jpg" style="width:100%;border-radius:10px;margin-top:10px">
-                    <h3 class="title"><a href="service-details.html">Healthy Snack Bars</a></h3>
-                    <p class="desc">Protein snacks & diet friendly foods </p>
-                    <span class="service">Service _ 03</span>
-                  </div>
-                </div>
-                <div class="swiper-slide">
-                  <div class="service__item">
-                    <span class="icon"><img src="assets/imgs/home-1/service/icon-1.png" alt="image"></span><img src="assets/imgs/demo/demo1.jpg" style="width:100%;border-radius:10px;margin-top:10px">
-                    <h3 class="title"><a href="service-details.html">50% Water & Hydration</a></h3>
-                    <p class="desc">Electrolyte & mineral hydration drinks</p>
-                    <span class="service">Service _ 04</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="service__arrow">
-              <button class="service__arrow-prev"> <i class="fa-solid fa-angle-left"></i></button>
-              <div class="service-pagination"></div>
-              <button class="service__arrow-next"><i class="fa-solid fa-angle-right"></i></button>
-
-            </div>
-          </div>
-        </section>
-
-        <section class="choose-us">
-          <div class="choose-us__inner section-spacing">
-            <div class="container rr-container-1350">
-              <div class="row">
-                <div class="col-xl-6">
-                  <div class="choose-us__content">
-                    <div class="section-title__wrapper">
-                      <h2 class="sub-title has--green" data-aos="fade-up" data-aos-duration="500">Smarter Way to Pay
-                      </h2>
-                      <h3 class="title rr-title-anim-1" data-aos="fade-up" data-aos-duration="900">Powering Payments
-                        with Confidence</h3>
-                      <p class="desc" data-aos="fade-up" data-aos-duration="900">Smart Vending System delivers secure, seamless,
-                        and reliable transactions with advanced
-                        protection and global reach, empowering businesses to build trust, scale faster, and grow
-                        confidently worldwide.</p>
-
-                      <a href="contact.html" class="rr-btn-green has--drk-gren" data-aos="fade-up"
-                        data-aos-duration="900">
-                        <span class="btn-wrap">
-                          <span class="text-one">Request Installation</span>
-                          <span class="text-two">Request Installation</span>
-                        </span>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xl-6">
-                  <div class="choose-us__media" data-aos="fade-up" data-aos-duration="900">
-                    <img class="image-1" src="assets/imgs/home-1/choose-us/choose-1.jpg" alt="image">
-                    <img class="image-2" src="assets/imgs/home-1/choose-us/choose-2.png" alt="image">
-                    <img class="image-3" src="assets/imgs/home-1/choose-us/choose-3.png" alt="image">
-                    <img class="image-4" src="assets/imgs/home-1/choose-us/icon-1.png" alt="image">
-                    <img class="image-5" src="assets/imgs/home-1/choose-us/icon-2.png" alt="image">
-
-                    <div class="rotation-container">
-                      <div class="ring ring1"></div>
-                      <div class="ring ring2"></div>
-                      <div class="ring ring3"></div>
-                      <div class="dot"></div>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-              <div class="choose-us__wrapper">
-                <div class="row">
-                  <div class="col-md-6 col-lg-4">
-                    <div class="choose-us__item" data-aos="fade-right" data-aos-duration="900">
-                      <h2 class="title"><span class="icon"><img src="assets/imgs/home-1/choose-us/icon-3.png"
-                            alt="image"></span><a href="contact.html">Lightning-Fast Transactions</a></h2>
-                      <p> Experience instant, reliable payments designed to keep your business.</p>
-                    </div>
-                  </div>
-                  <div class="col-md-6 col-lg-4">
-                    <div class="choose-us__item" data-aos="fade-up" data-aos-duration="900">
-                      <h2 class="title"><span class="icon"><img src="assets/imgs/home-1/choose-us/icon-4.png"
-                            alt="image"></span><a href="contact.html"> Bank-Grade Security</a></h2>
-                      <p> Protecting every transaction with advanced encryption and fraud.</p>
-                    </div>
-                  </div>
-                  <div class="col-md-6 col-lg-4">
-                    <div class="choose-us__item" data-aos="fade-left" data-aos-duration="900">
-                      <h2 class="title"><span class="icon"><img src="assets/imgs/home-1/choose-us/icon-5.png"
-                            alt="image"></span><a href="contact.html">Trusted by Businesses</a></h2>
-                      <p> Thousands of businesses worldwide rely on Smart Vending System for secure</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="control-plan section-spacing-top-120">
-          <div class="container rr-container-1350">
-            <div class="row">
-              <div class="col-xl-3">
-                <div class="control-plan__left" data-aos="fade-right" data-aos-duration="900">
-                  <div class="control-plan__left-icon">
-                    <h2 class="title">We Mnetioned your business on X</h2>
-                    <a href="https://www.facebook.com/"><i class="fa-solid fa-s"></i></a>
-                    <img class="line-1" src="assets/imgs/home-1/control-plan/line-1.png" alt="image">
-                  </div>
-
-                  <div class="control-plan__left-icon icon-2">
-                    <img class="dot-shape" src="assets/imgs/home-1/control-plan/dot-shape.png" alt="image">
-                    <a href="https://x.com/"><i class="fa-brands fa-x-twitter"></i></a>
-                    <img class="line-2" src="assets/imgs/home-1/control-plan/line-2.png" alt="image">
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-6">
-                <div class="section-title__wrapper text-center" data-aos="fade-up" data-aos-duration="700">
-                  <h2 class="sub-title">Take Control in Real Time</h2>
-                  <h2 class="title rr-title-anim-1">Smart Monitoring & Daily Fresh Stocking</h2>
-                </div>
-                <div class="control-plan__wrapper" data-aos="fade-up" data-aos-duration="900">
-                  <div class="control-plan__item">
-                    <h2 class="title"><span class="odometer" data-count="50">0</span>%</h2>
-                    <p>Refilled Every Day</p>
-                  </div>
-                  <div class="control-plan__item">
-                    <h2 class="title"><span class="odometer" data-count="25">0</span>%</h2>
-                    <p>24/7 Availability</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-3">
-                <div class="control-plan__right" data-aos="fade-left" data-aos-duration="900">
-
-                  <div class="control-plan__right-icon icon-3">
-                    <img class="dot-shape" src="assets/imgs/home-1/control-plan/dot-shape.png" alt="image">
-                    <a href="https://www.instagram.com/"><i class="fa-brands fa-instagram"></i></a>
-                    <img class="line-3" src="assets/imgs/home-1/control-plan/line-3.png" alt="image">
-                  </div>
-
-                  <div class="control-plan__right-icon has--4">
-                    <h2 class="title">We metioned your business on facebook</h2>
-                    <a href="https://www.facebook.com/"><i class="fa-brands fa-facebook-f"></i></a>
-                    <img class="line-4" src="assets/imgs/home-1/control-plan/line-4.png" alt="image">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="media" data-aos="fade-up" data-aos-duration="900">
-              <img src="assets/imgs/home-1/control-plan/control-plan.png" alt="image ">
-            </div>
-          </div>
-        </section>
-
-        <!-- pricing__area start -->
-        <section class="pricing rr-bg-gray section-spacing">
-          <div class="container rr-container-1350">
-            <div class="pricing__wrapper">
-              <div class="pricing__card " data-aos="fade-right" data-aos-duration="900">
-                <h3 class="pricing__card__title">Small Office / Clinic</h3>
-                <div class="pricing__card__price">
-                  <h2 data-Monthly="<span>$49</span> <span>/per month</span>"
-                    data-Annually="<span>$100</span> <span>/per yearly</span>">
-                    <span>$49</span> <span>/per month</span>
-                  </h2>
-                </div>
-                <div class="pricing__body">
-                  <ul>
-                    <li><span><i class="fa-solid fa-check"></i></span>Perfect for small businesses </li>
-                    <li><span><i class="fa-solid fa-check"></i></span>2.5% + $0.30 per transaction </li>
-                    <li><span><i class="fa-solid fa-check"></i></span>No setup fees </li>
-                    <li><span><i class="fa-solid fa-check"></i></span>Basic support </li>
-                    <li><span><i class="fa-solid fa-check"></i></span>Custom rates </li>
-                  </ul>
-                </div>
-                <div class="pricing__price__btn">
-                  <a href="contact.html" class="rr-btn-green">
-                    <span class="btn-wrap">
-                      <span class="text-one">Select This Plan</span>
-                      <span class="text-two">Select This Plan</span>
-                    </span>
-                  </a>
-                </div>
-              </div>
-              <div class="pricing__card" data-aos="fade-up" data-aos-duration="900">
-                <h3 class="pricing__card__title">Gym / Corporate Building</h3>
-                <div class="pricing__card__price ">
-                  <h2 data-Monthly="<span>$49</span> <span>/per month</span>"
-                    data-Annually="<span>$100</span> <span>/per yearly</span>">
-                    <span>$49</span> <span>/per month</span>
-                  </h2>
-                </div>
-                <div class="pricing__body">
-                  <ul>
-                    <li><span><i class="fa-solid fa-check"></i></span> Ideal for growing SMEs</li>
-                    <li><span><i class="fa-solid fa-check"></i></span>2.0% + $0.25 per transaction</li>
-                    <li><span><i class="fa-solid fa-check"></i></span>Advanced analytics</li>
-                    <li><span><i class="fa-solid fa-check"></i></span>Priority support</li>
-                    <li><span><i class="fa-solid fa-check"></i></span>Dedicated account manager</li>
-                  </ul>
-                </div>
-                <div class="pricing__price__btn">
-                  <a href="contact.html" class="rr-btn-green">
-                    <span class="btn-wrap">
-                      <span class="text-one">Select This Plan</span>
-                      <span class="text-two">Select This Plan</span>
-                    </span>
-                  </a>
-                </div>
-              </div>
-              <div class="pricing__content" data-aos="fade-left" data-aos-duration="900">
-                <div class="section-title__wrapper">
-                  <h2 class="sub-title">Partner With MySnacks</h2>
-                  <h2 class="title rr-title-anim-1">Install a Machine at Your Location</h2>
-                  <p class="desc">"Smart Vending System offers transparent, customizable pricing plans tailored to startups,
-                    SMEs, and enterprises—ensuring affordability, scalability.</p>
-                </div>
-                <div class="pricing__toggle-button ">
-                  <span class="pricing__toggler" id="Monthly">monthly</span>
-                  <label class="pricing__toggle">
-                    <input type="checkbox" id="checkbox" onclick="check()">
-                    <span class="switcher toggle"></span>
-                  </label>
-                  <span class="pricing__toggler" id="Annually">yearly</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <!-- pricing__area start -->
-
-        <section class="testimonial">
-          <div class="testimonial__inner section-spacing rr-pos-rel">
-            <div class="shape-1"><img src="assets/imgs/home-1/testimonial/shape.png" alt="image"></div>
-            <div class="container rr-container-1350">
-              <div class="row">
-                <div class="col-lg-5">
-                  <div class="testimonial__content" data-aos="fade-right" data-aos-duration="900">
-                    <div class="section-title__wrapper ">
-                      <h2 class="sub-title has--green">Testimonials</h2>
-                      <h2 class="title rr-title-anim-1">Why Businesses Love Smart Vending System</h2>
-                    </div>
-
-                    <div class="testimonial__author">
-                      <ul>
-                        <li><img src="assets/imgs/home-1/testimonial/author-1.jpg" alt="image"></li>
-                        <li><img src="assets/imgs/home-1/testimonial/author-2.jpg" alt="image"></li>
-                        <li><img src="assets/imgs/home-1/testimonial/author-3.jpg" alt="image"></li>
-                        <li><i class="fa-solid fa-plus"></i></li>
-                      </ul>
-
-                      <h3 class="active">669k+ Active
-                        users world-wide</h3>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-7" data-aos="fade-left" data-aos-duration="900">
-
-                  <div class=" testimonial-slide__active" id="slideContainer">
-                    <div class="arrow__wrapper">
-
-                      <button class="arrow-btn prev" onclick="changeSlide(-1)">
-                        <i class="fa-solid fa-angle-up"></i>
-                      </button>
-
-                      <button class="arrow-btn next" onclick="changeSlide(1)">
-                        <i class="fa-solid fa-angle-down"></i>
-                      </button>
-                    </div>
-                    <div class="testimonial__item" data-index="0">
-                      <div class="logo"><img src="assets/imgs/home-1/testimonial/logo.png" alt="image"></div>
-                      <p class="desc">“On the Windows talking painted pasture yet its express parties use. Sure last
-                        upon he same as knew next. Of believed or diverted no.”</p>
-                      <div class="testimonial__info">
-                        <div class="testimonial__info__media">
-                          <img src="assets/imgs/home-1/testimonial/author-4.jpg" alt="image">
-                        </div>
-                        <div class="testimonial__info__content">
-                          <h2 class="title">Kevin Martin</h2>
-                          <span class="sub-title">Web Designer</span>
-                        </div>
-                      </div>
-                      <div class="shape"><img src="assets/imgs/home-1/testimonial/quite.png" alt="image"></div>
-                    </div>
-                    <div class="testimonial__item item-2" data-index="1">
-                      <div class="logo"><img src="assets/imgs/home-1/testimonial/logo.png" alt="image"></div>
-                      <p class="desc">“On the Windows talking painted pasture yet its express parties use. Sure last
-                        upon he same as knew next. Of believed or diverted no.”</p>
-                      <div class="testimonial__info">
-                        <div class="testimonial__info__media">
-                          <img src="assets/imgs/home-1/testimonial/author-4.jpg" alt="image">
-                        </div>
-                        <div class="testimonial__info__content">
-                          <h2 class="title">Kevin Martin</h2>
-                          <span class="sub-title">Web Designer</span>
-                        </div>
-                      </div>
-                      <div class="shape"><img src="assets/imgs/home-1/testimonial/quite.png" alt="image"></div>
-                    </div>
-                    <div class="testimonial__item item-3" data-index="2">
-                      <div class="logo"><img src="assets/imgs/home-1/testimonial/logo.png" alt="image"></div>
-                      <p class="desc">“On the Windows talking painted pasture yet its express parties use. Sure last
-                        upon he same as knew next. Of believed or diverted no.”</p>
-                      <div class="testimonial__info">
-                        <div class="testimonial__info__media">
-                          <img src="assets/imgs/home-1/testimonial/author-4.jpg" alt="image">
-                        </div>
-                        <div class="testimonial__info__content">
-                          <h2 class="title">Kevin Martin</h2>
-                          <span class="sub-title">Web Designer</span>
-                        </div>
-                      </div>
-                      <div class="shape"><img src="assets/imgs/home-1/testimonial/quite.png" alt="image"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="technology section-spacing">
-          <div class="container rr-container-1350">
-            <div class="row">
-              <div class="col-lg-7" data-aos="fade-right" data-aos-duration="900">
-                <div class="technology__card" data-background="assets/imgs/home-1/technology/bg.png">
-                  <img class="shape-1" src="assets/imgs/home-1/technology/shape-1.png" alt="image">
-                  <img class="shape-2" src="assets/imgs/home-1/technology/shape-2.png" alt="image">
-                  <div class="section-title__wrapper ">
-                    <h2 class="sub-title">Our Technology</h2>
-                    <h2 class="title rr-title-anim-1 color-white">Smart IoT Vending Technology</h2>
-                    <p class="decs">Smart Vending System leverages cutting-edge technology to deliver faster, safer, and smarter
-                      transactions,
-                      ensuring businesses.</p>
-                  </div>
-
-                  <a href="contact.html" class="rr-btn-green">
-                    <span class="btn-wrap">
-                      <span class="text-one">get access now</span>
-                      <span class="text-two">get access now</span>
-                    </span>
-                  </a>
-                </div>
-              </div>
-              <div class="col-lg-5" data-aos="fade-left" data-aos-duration="900">
-                <div class="technology__wrapper" data-background="assets/imgs/home-1/technology/bg-2.png">
-
-                  <h2 class="title">Smart Healthy Vending</h2>
-                  <div class="client-capsule-wrapper-box" data-t-throwable-scene="true">
-                    <div class="client-capsule-wrapper">
-                      <p data-t-throwable-el="">
-                        <span class="client-box ">
-                          <img src="assets/imgs/home-1/technology/logo-1.png" alt="image">
-                        </span>
-                      </p>
-                      <p data-t-throwable-el="">
-                        <span class="client-box ">
-                          <img src="assets/imgs/home-1/technology/logo-2.png" alt="image">
-                        </span>
-                      </p>
-                      <p data-t-throwable-el="">
-                        <span class="client-box ">
-                          <img src="assets/imgs/home-1/technology/logo-3.png" alt="image">
-                        </span>
-                      </p>
-                      <p data-t-throwable-el="">
-                        <span class="client-box ">
-                          <img src="assets/imgs/home-1/technology/logo-4.png" alt="image">
-                        </span>
-                      </p>
-                      <p data-t-throwable-el="">
-                        <span class="client-box ">
-                          <img src="assets/imgs/home-1/technology/logo-5.png" alt="image">
-                        </span>
-                      </p>
-                      <p data-t-throwable-el="">
-                        <span class="client-box ">
-                          <img src="assets/imgs/home-1/technology/logo-6.png" alt="image">
-                        </span>
-                      </p>
-                      <p data-t-throwable-el="">
-                        <span class="client-box ">
-                          <img src="assets/imgs/home-1/technology/logo-7.png" alt="image">
-                        </span>
-                      </p>
-                      <p data-t-throwable-el="">
-                        <span class="client-box ">
-                          <img src="assets/imgs/home-1/technology/logo-8.png" alt="image">
-                        </span>
-                      </p>
-                      <p data-t-throwable-el="">
-                        <span class="client-box ">
-                          <img src="assets/imgs/home-1/technology/logo-9.png" alt="image">
-                        </span>
-                      </p>
-                      <p data-t-throwable-el="">
-                        <span class="client-box ">
-                          <img src="assets/imgs/home-1/technology/logo-10.png" alt="image">
-                        </span>
-                      </p>
-                      <p data-t-throwable-el="">
-                        <span class="client-box ">
-                          <img src="assets/imgs/home-1/technology/logo-11.png" alt="image">
-                        </span>
-                      </p>
-                      <p data-t-throwable-el="">
-                        <span class="client-box ">
-                          <img src="assets/imgs/home-1/technology/logo-12.png" alt="image">
-                        </span>
-                      </p>
-                      <p data-t-throwable-el="">
-                        <span class="client-box ">
-                          <img src="assets/imgs/home-1/technology/logo-13.png" alt="image">
-                        </span>
-                      </p>
-                      <p data-t-throwable-el="">
-                        <span class="client-box ">
-                          <img src="assets/imgs/home-1/technology/logo-14.png" alt="image">
-                        </span>
-                      </p>
-                      <p data-t-throwable-el="">
-                        <span class="client-box ">
-                          <img src="assets/imgs/home-1/technology/logo-15.png" alt="image">
-                        </span>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="faq rr-bg-gray section-spacing rr-ov-hidde">
-          <div class="container rr-container-1350">
-            <div class="row">
-              <div class="col-lg-5">
-                <div class="faq__content" data-aos="fade-right" data-aos-duration="500">
-                  <div class="section-title__wrapper">
-                    <h2 class="sub-title"><span><img src="assets/imgs/icon/massage.png" alt="image"></span>Support &
-                      Help</h2>
-                    <h2 class="title rr-title-anim-1">Got Questions? We’ve Got Answers</h2>
-                    <p class="desc">Find straightforward answers to common questions about Smart Vending System—covering
-                      security,
-                      pricing, features, and setup—so your payment journey stays simple.</p>
-
-                    <a href="contact.html" class="rr-btn-green">
-                      <span class="btn-wrap">
-                        <span class="text-one">CONTACT US</span>
-                        <span class="text-two">CONTACT US</span>
-                      </span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-lg-7">
-                <div class="accordion" id="accordionExample">
-                  <div class="global-accordion-item" data-aos="fade-up" data-aos-duration="500">
-                    <div class="global-accordion-header">
-                      <div class="global-accordion-button collapsed style" data-bs-toggle="collapse" role="group"
-                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        <div class="question">
-                          What is Smart Vending System and how does it work?
-                        </div>
-                      </div>
-                    </div>
-                    <div id="collapseOne" class="global-accordion-collapse collapse" data-bs-parent="#accordionExample">
-                      <div class="global-accordion-body style">
-                        <p>Smart Vending System is a secure payment gateway that enables businesses to accept online transactions
-                          quickly, safely, and globally.</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="global-accordion-item" data-aos="fade-up" data-aos-duration="600">
-                    <div class="global-accordion-header">
-                      <div class="global-accordion-button style" data-bs-toggle="collapse" role="group"
-                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        <div class="question">
-                          Is Smart Vending System secure for online transactions?
-                        </div>
-                      </div>
-                    </div>
-                    <div id="collapseTwo" class="global-accordion-collapse collapse show"
-                      data-bs-parent="#accordionExample">
-                      <div class="global-accordion-body style">
-                        <p>Smart Vending System is a secure payment gateway that enables businesses to accept online transactions
-                          quickly, safely, and globally.</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="global-accordion-item" data-aos="fade-up" data-aos-duration="700">
-                    <div class="global-accordion-header">
-                      <div class="global-accordion-button collapsed style" data-bs-toggle="collapse" role="group"
-                        data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        <div class="question">
-                          Which payment methods are supported? </div>
-                      </div>
-                    </div>
-                    <div id="collapseThree" class="global-accordion-collapse collapse"
-                      data-bs-parent="#accordionExample">
-                      <div class="global-accordion-body style">
-                        <p>Smart Vending System is a secure payment gateway that enables businesses to accept online transactions
-                          quickly, safely, and globally.</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="global-accordion-item" data-aos="fade-up" data-aos-duration="800">
-                    <div class="global-accordion-header">
-                      <div class="global-accordion-button collapsed style" data-bs-toggle="collapse" role="group"
-                        data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                        <div class="question">
-                          Can I accept international payments?
-                        </div>
-                      </div>
-                    </div>
-                    <div id="collapseFour" class="global-accordion-collapse collapse"
-                      data-bs-parent="#accordionExample">
-                      <div class="global-accordion-body style">
-                        <p>Smart Vending System is a secure payment gateway that enables businesses to accept online transactions
-                          quickly, safely, and globally.</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="global-accordion-item" data-aos="fade-up" data-aos-duration="900">
-                    <div class="global-accordion-header">
-                      <div class="global-accordion-button collapsed style" data-bs-toggle="collapse" role="group"
-                        data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                        <div class="question">
-                          Are there any hidden fees?
-                        </div>
-                      </div>
-                    </div>
-                    <div id="collapseFive" class="global-accordion-collapse collapse"
-                      data-bs-parent="#accordionExample">
-                      <div class="global-accordion-body style">
-                        <p>Smart Vending System is a secure payment gateway that enables businesses to accept online transactions
-                          quickly, safely, and globally.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-
-        <section class="blog section-spacing">
-          <div class="container rr-container-1350">
-            <div class="row">
-              <div class="col-lg-5">
-                <div class="blog__content" data-aos="fade-right" data-aos-duration="700">
-                  <ul class="meta">
-                    <li>getway</li>
-                    <li><span>Jun 28, 2025</span></li>
-                  </ul>
-                  <div class="section-title__wrapper">
-                    <h2 class="title rr-title-anim-1">The Future of Digital Payments Trends to Watch in 2025</h2>
-                    <p class="desc">Discover how AI, blockchain, biometrics, and seamless cross-border transactions are
-                      shaping the future of digital payments, driving innovation</p>
-
-                    <a href="blog-details.html" class="rr-btn-green">
-                      <span class="btn-wrap">
-                        <span class="text-one">VIEW AERICAL</span>
-                        <span class="text-two">VIEW AERICAL</span>
-                      </span>
-                    </a>
-                  </div>
-                </div>
-                <div class="blog__item" data-aos="fade-up" data-aos-duration="1000">
-                  <div class="media" data-aos="zoom-in" data-aos-duration="900">
-                    <img src="assets/imgs/home-1/blog/blog-1.jpg" alt="image not fond">
-                  </div>
-                  <div class="content">
-                    <ul class="meta-list">
-                      <li>getway</li>
-                      <li>Jun 28, 2025</li>
-                    </ul>
-                    <h2 class="title rr-title-anim-1"><a href="blog-details.html">The Role of AI in Modern Payment
-                        Security</a></h2>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-7">
-                <div class="section-title__wrapper" data-aos="fade-left" data-aos-duration="500">
-                  <h2 class="sub-title">Insights & Updates</h2>
-                  <h2 class="title rr-title-anim-1">Smart Vending System Blog & Artical</h2>
-                </div>
-                <div class="blog__item" data-aos="fade-up" data-aos-duration="1200">
-                  <div class="media" data-aos="zoom-in" data-aos-duration="900">
-                    <img src="assets/imgs/home-1/blog/blog-2.jpg" alt="image not fond">
-                  </div>
-                  <div class="content">
-                    <ul class="meta-list">
-                      <li>getway</li>
-                      <li>Jun 28, 2025</li>
-                    </ul>
-                    <h2 class="title rr-title-anim-1"><a href="blog-details.html">How to Choose the Right Payment
-                        Gateway for <br> Your
-                        Business</a>
-                    </h2>
-                    <a href="blog-details.html" class="rr-btn-green">
-                      <span class="btn-wrap">
-                        <span class="text-one">VIEW AERICAL</span>
-                        <span class="text-two">VIEW AERICAL</span>
-                      </span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-
-      
-<section class="locations section-spacing">
-<div class="container rr-container-1350">
-<div class="section-title__wrapper text-center">
-<h2 class="sub-title">Our Locations</h2>
-<h2 class="title">Find MySnacks Near You in Dubai</h2>
-<p class="desc">Our machines are installed in offices, gyms, hospitals, hotels and residential towers.</p>
-</div>
-<div style="width:100%;height:420px;border-radius:16px;overflow:hidden">
-<iframe src="https://maps.google.com/maps?q=Dubai&t=&z=11&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" frameborder="0"></iframe>
-</div>
-</div>
-</section>
-
-<section class="calorie section-spacing rr-bg-gray">
-<div class="container rr-container-1350">
-<div class="section-title__wrapper text-center">
-<h2 class="sub-title">Nutrition Info</h2>
-<h2 class="title">Healthy Choices & Calories</h2>
-</div>
-<div class="row">
-<div class="col-md-3"><div class="service__item"><h3>Fruit Bowl</h3><p>80 - 120 kcal</p></div></div>
-<div class="col-md-3"><div class="service__item"><h3>Fresh Juice</h3><p>90 - 150 kcal</p></div></div>
-<div class="col-md-3"><div class="service__item"><h3>Smoothie</h3><p>150 - 250 kcal</p></div></div>
-<div class="col-md-3"><div class="service__item"><h3>Protein Snack Bar</h3><p>180 - 220 kcal</p></div></div>
-</div>
-</div>
-</section>
-
-<section class="section-spacing">
-<div class="container rr-container-1350 text-center">
-<h2 class="title">Scan & Order from Vending Machine</h2>
-<p>Scan the QR code to browse products and place your order instantly.</p>
-<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://mysnacks.ae" style="margin:20px auto;">
-</div>
-</section>
-
-</main>
-
-
-      <footer class="footer p-relative">
-        <div class="footer__bg-shape"></div>
-        <div class="container rr-container-1350">
-          <div class="row">
-            <div class="col-lg-7">
-              <div class="footer__widget">
-                <div class="footer__social">
-                  <ul>
-                    <li><a href="https://www.facebook.com/" target="_blank">Facebook</a></li>
-                    <li><a href="https://www.instagram.com/" target="_blank">Instagram</a></li>
-                    <li><a href="https://www.instagram.com/" target="_blank">Instagram</a></li>
-                    <li><a href="https://www.instagram.com/" target="_blank">Instagram</a></li>
-
-                  </ul>
-                </div>
-                <div class="footer__contact">
-                  <ul>
-                    <li><a href="tel:+0235567894640">+9710000000</a></li>
-                    <li><a href="mailto:info@mysnacks.ae">info@mysnacks.ae</a></li>
-                  </ul>
-                </div>
-                <div class="footer__menu">
-                  <ul>
-                    <li><a href="index.html">home</a></li>
-                    <li><a href="about.html">about us</a></li>
-                    <li><a href="#">pages</a></li>
-                    <li><a href="service.html">SERVICES</a></li>
-                    <li><a href="blog.html">blog</a></li>
-                    <li><a href="contact.html">contact us</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-5">
-              <div class="footer__info">
-                <h2 class="footer__subtitle">Newsletter</h2>
-                <h3 class="footer__title">Get The latest Ubdates</h3>
-                <p class="footer__dec">"Subscribe to receive the latest news, product updates, and menu updates from
-                  Smart Vending System—delivered straight to your
-                  inbox."</p>
-                <div class="footer__form">
-                  <div class="footer__input">
-                    <div class="icon">
-                      <img src="assets/imgs/icon/icon-08.png" alt="icon not found">
-                    </div>
-                    <input type="text" placeholder="Enter Your Email">
-                  </div>
-                  <div class="footer__btn">
-                    <button type="submit">subscribe now</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="footer__big-text">
-          <h2>Smart Healthy Vending</h2>
-        </div>
-        <div class="copyright">
-          <div class="container rr-container-1350">
-            <div class="copyright__wrap">
-              <div class="copyright__text">
-                <p class="text">Copyright © 2025 <a href="#">MySnacks,</a>
-                  All Rights Reserved.</p>
-              </div>
-              <div class="copyright__logo">
-                <a href="index.html">
-                  <img src="assets/imgs/logo/logo.png" alt="logo not found">
-                </a>
-              </div>
-              <div class="copyright__menu">
-                <ul>
-                  <li><a href="contact.html">Terms & Conditions</a></li>
-                  <li><a href="contact.html">Privacy Policy</a></li>
-                  <li><a href="contact.html">Contact Us</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-<section class="section-spacing">
-<div class="container rr-container-1350">
-<h2 class="title text-center">Our Smart Machines in Action</h2>
-<div class="row">
-<div class="col-md-4"><img src="assets/imgs/demo/demo1.jpg" style="width:100%;border-radius:16px"></div>
-<div class="col-md-4"><img src="assets/imgs/demo/demo2.jpg" style="width:100%;border-radius:16px"></div>
-<div class="col-md-4"><img src="assets/imgs/demo/demo3.jpg" style="width:100%;border-radius:16px"></div>
-</div></div></section>
-</footer>
-
+      </div>
     </div>
   </div>
+</div>
 
+<!-- HOW IT WORKS -->
+<section class="section" id="how">
+  <div class="section-label">Process</div>
+  <h2 class="section-title">How It Works</h2>
+  <p class="section-sub">Getting a MySnacks machine at your office is completely hassle-free.</p>
+  <div class="steps">
+    <div class="step reveal">
+      <div class="step-num">01</div>
+      <div class="step-icon">📋</div>
+      <div class="step-title">Request Installation</div>
+      <div class="step-desc">Fill out our quick form with your location details and number of employees. We'll get back within 24 hours.</div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">02</div>
+      <div class="step-icon">🔧</div>
+      <div class="step-title">We Set Up — Free</div>
+      <div class="step-desc">Our team installs and configures the machine at no cost to you. Zero maintenance work on your end ever.</div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">03</div>
+      <div class="step-icon">🔄</div>
+      <div class="step-title">Fresh Restocks, Always</div>
+      <div class="step-desc">We manage all restocking and freshness checks. Your team just walks up and enjoys.</div>
+    </div>
+  </div>
+</section>
 
-  <!-- Dependencies JS Files -->
-  <script src="assets/vandor/jquery/jquery.js"></script>
-  <script src="assets/vandor/bootstrap/bootstrap.bundle.min.js"></script>
-  <script src="assets/vandor/popup/jquery.magnific-popup.min.js"></script>
-  <script src="assets/vandor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vandor/gsap/gsap.min.js"></script>
-  <script src="assets/vandor/gsap/ScrollSmoother.min.js"></script>
-  <script src="assets/vandor/gsap/ScrollTrigger.min.js"></script>
-  <script src="assets/vandor/gsap/SplitText.min.js"></script>
-  <script src="assets/vandor/gsap/SplitType.js"></script>
-  <script src="assets/vandor/gsap/customEase.js"></script>
-  <script src="assets/vandor/odometer/odometer.min.js"></script>
-  <script src="assets/vandor/odometer/waypoints.min.js"></script>
-  <script src="assets/vandor/menu/jquery.meanmenu.min.js"></script>
-  <script src="assets/vandor/backtop/backToTop.js"></script>
-  <script src="assets/vandor/nice-select/nice-select.js"></script>
-  <script src="assets/vandor/animation/aos.js"></script>
-  <script src="assets/vandor/gsap/throwable.js"></script>
-  <script src="assets/vandor/gsap/matter.js"></script>
-  <!-- Template Main JS File -->
-  <script src="assets/vandor/common-js/common.js"></script>
-  <script src="assets/js/main.js"></script>
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="section-label">Get in Touch</div>
+  <h2 class="section-title">Install at Your Office</h2>
+  <p class="section-sub">Whether you want a machine for your office or just want to ask us something — we're fast to respond.</p>
+  <div class="contact-grid">
+    <div>
+      <div class="contact-card reveal" style="margin-bottom:1.5rem;">
+        <div class="contact-method">
+          <div class="c-icon">📞</div>
+          <div>
+            <div class="c-label">Phone / WhatsApp</div>
+            <div class="c-value"><a href="tel:+971500000000">+971 50 000 0000</a></div>
+          </div>
+        </div>
+        <div class="contact-method">
+          <div class="c-icon">✉️</div>
+          <div>
+            <div class="c-label">Email</div>
+            <div class="c-value"><a href="mailto:hello@mysnacks.ae">hello@mysnacks.ae</a></div>
+          </div>
+        </div>
+        <div class="contact-method">
+          <div class="c-icon">📍</div>
+          <div>
+            <div class="c-label">Based In</div>
+            <div class="c-value">Dubai, United Arab Emirates</div>
+          </div>
+        </div>
+        <div class="contact-method">
+          <div class="c-icon">⏱</div>
+          <div>
+            <div class="c-label">Response Time</div>
+            <div class="c-value">Under 24 Hours</div>
+          </div>
+        </div>
+      </div>
+      <!-- WhatsApp quick button -->
+      <a href="https://wa.me/971500000000?text=Hi%2C%20I'm%20interested%20in%20a%20MySnacks%20vending%20machine%20for%20my%20office." 
+         class="btn-primary reveal" style="display:inline-flex;width:100%;justify-content:center;border-radius:14px;padding:1rem;">
+        💬 WhatsApp Us Directly
+      </a>
+    </div>
+    <div class="contact-card reveal">
+      <div style="font-family:'Clash Display',sans-serif;font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:1.5rem;">Request an Installation</div>
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" placeholder="Ahmed Al Rashidi">
+      </div>
+      <div class="form-group">
+        <label>Company Name</label>
+        <input type="text" placeholder="Acme Corp LLC">
+      </div>
+      <div class="form-group">
+        <label>Phone / WhatsApp</label>
+        <input type="tel" placeholder="+971 50 000 0000">
+      </div>
+      <div class="form-group">
+        <label>Office Location</label>
+        <select>
+          <option value="">Select Area</option>
+          <option>DIFC</option>
+          <option>Business Bay</option>
+          <option>Downtown Dubai</option>
+          <option>Dubai Media City</option>
+          <option>JLT</option>
+          <option>Dubai Silicon Oasis</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Number of Employees</label>
+        <select>
+          <option value="">Select Range</option>
+          <option>10–50</option>
+          <option>50–150</option>
+          <option>150–500</option>
+          <option>500+</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Message (Optional)</label>
+        <textarea placeholder="Tell us anything — floor number, preferred placement, questions..."></textarea>
+      </div>
+      <button class="submit-btn">Send Request →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">my<span>snacks</span>.ae</div>
+  <div class="footer-copy">© 2025 MySnacks.ae — Dubai, UAE. All rights reserved.</div>
+  <div class="footer-links">
+    <a href="#menu">Menu</a>
+    <a href="#locations">Locations</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+// CURSOR
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cursor.style.left=mx+'px';cursor.style.top=my+'px';
+});
+function animRing(){
+  rx+=(mx-rx)*0.1;ry+=(my-ry)*0.1;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+}animRing();
+document.querySelectorAll('a,button,.menu-card,.location-item,.step,.stat-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{
+    cursor.style.width='20px';cursor.style.height='20px';
+    ring.style.width='60px';ring.style.height='60px';
+    ring.style.borderColor='rgba(255,107,0,0.8)';
+  });
+  el.addEventListener('mouseleave',()=>{
+    cursor.style.width='12px';cursor.style.height='12px';
+    ring.style.width='36px';ring.style.height='36px';
+    ring.style.borderColor='rgba(255,107,0,0.7)';
+  });
+});
+
+// SCROLL REVEAL
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('visible');}
+  });
+},{threshold:0.1,rootMargin:'0px 0px -60px 0px'});
+document.querySelectorAll('.reveal').forEach((el,i)=>{
+  el.style.transitionDelay=(i%5)*0.08+'s';
+  observer.observe(el);
+});
+
+// COUNT UP
+function countUp(el,target,suffix=''){
+  let start=0;
+  const dur=1800;const step=dur/60;
+  const inc=target/60;
+  const timer=setInterval(()=>{
+    start+=inc;
+    if(start>=target){start=target;clearInterval(timer);}
+    el.textContent=Math.floor(start)+(suffix);
+  },step);
+}
+const statsObserver=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const el=e.target;
+      const target=parseInt(el.getAttribute('data-count'));
+      const suffix=target===24?'/7':target===1000?'+':'';
+      countUp(el,target,suffix);
+      statsObserver.unobserve(el);
+    }
+  });
+},{threshold:0.5});
+document.querySelectorAll('[data-count]').forEach(el=>statsObserver.observe(el));
+
+// NAV scroll effect
+window.addEventListener('scroll',()=>{
+  document.querySelector('nav').style.background=
+    window.scrollY>50?'rgba(10,10,10,0.95)':'rgba(10,10,10,0.7)';
+});
+
+// Form submit
+document.querySelector('.submit-btn').addEventListener('click',function(){
+  this.textContent='✅ Sent! We\'ll be in touch soon.';
+  this.style.background='#27AE60';
+  setTimeout(()=>{
+    this.textContent='Send Request →';
+    this.style.background='';
+  },3000);
+});
+</script>
 </body>
-
 </html>
