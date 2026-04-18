@@ -3,538 +3,659 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MySnacks.ae — Premium Vending Dubai</title>
-<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@400;500;700;800&display=swap" rel="stylesheet">
+<title>MySnacks.ae — Fresh Vending, Dubai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --orange: #FF6B00;
-    --orange-light: #FF8C3A;
-    --orange-dark: #CC5500;
-    --orange-glow: rgba(255,107,0,0.18);
-    --black: #0A0A0A;
-    --off-black: #111111;
-    --card-bg: #161616;
-    --card-border: rgba(255,107,0,0.15);
-    --text: #F5F0E8;
-    --muted: #8A8070;
-    --white: #FFFFFF;
-  }
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-  html{scroll-behavior:smooth;}
-  body{
-    font-family:'Cabinet Grotesk',sans-serif;
-    background:var(--black);
-    color:var(--text);
-    overflow-x:hidden;
-    cursor:none;
-  }
-  /* CUSTOM CURSOR */
-  .cursor{
-    position:fixed;width:12px;height:12px;
-    background:var(--orange);border-radius:50%;
-    pointer-events:none;z-index:9999;
-    transform:translate(-50%,-50%);
-    transition:transform 0.1s,width 0.3s,height 0.3s,background 0.3s;
-  }
-  .cursor-ring{
-    position:fixed;width:36px;height:36px;
-    border:1.5px solid var(--orange);border-radius:50%;
-    pointer-events:none;z-index:9998;
-    transform:translate(-50%,-50%);
-    transition:transform 0.18s cubic-bezier(.25,.46,.45,.94),width 0.3s,height 0.3s,border-color 0.3s;
-    opacity:0.7;
-  }
-  /* NAV */
-  nav{
-    position:fixed;top:0;left:0;right:0;z-index:100;
-    display:flex;align-items:center;justify-content:space-between;
-    padding:1.2rem 4rem;
-    background:rgba(10,10,10,0.7);
-    backdrop-filter:blur(20px);
-    border-bottom:1px solid rgba(255,107,0,0.08);
-    transition:background 0.3s;
-  }
-  .nav-logo{
-    font-family:'Clash Display',sans-serif;
-    font-size:1.5rem;font-weight:700;
-    color:var(--white);letter-spacing:-0.02em;
-  }
-  .nav-logo span{color:var(--orange);}
-  .nav-links{display:flex;gap:2.5rem;list-style:none;}
-  .nav-links a{
-    text-decoration:none;color:var(--muted);
-    font-size:0.875rem;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;
-    transition:color 0.2s;
-  }
-  .nav-links a:hover{color:var(--orange);}
-  .nav-cta{
-    background:var(--orange);color:var(--white);
-    padding:0.6rem 1.5rem;border-radius:100px;
-    font-size:0.875rem;font-weight:700;text-decoration:none;
-    transition:background 0.2s,transform 0.2s;
-    letter-spacing:0.02em;
-  }
-  .nav-cta:hover{background:var(--orange-light);transform:scale(1.04);}
+:root{
+  --o:#FF4500;--o2:#FF7433;--o3:#FFB380;
+  --bg:#060606;--bg2:#0C0C0C;--bg3:#111;
+  --card:#0F0F0F;--card2:#161616;
+  --border:rgba(255,255,255,.06);--border-o:rgba(255,69,0,.22);
+  --txt:#EDE9E3;--txt2:#5A5550;--txt3:#9A9490;
+  --white:#fff;--green:#16A34A;
+  --radius:16px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  background:var(--bg);color:var(--txt);
+  overflow-x:hidden;cursor:none;
+  -webkit-font-smoothing:antialiased;
+}
 
-  /* HERO */
-  .hero{
-    min-height:100vh;display:flex;align-items:center;
-    position:relative;overflow:hidden;
-    padding:8rem 4rem 4rem;
-  }
-  .hero-bg{
-    position:absolute;inset:0;
-    background:radial-gradient(ellipse 60% 60% at 70% 50%, rgba(255,107,0,0.12) 0%, transparent 70%);
-    pointer-events:none;
-  }
-  .hero-grid{
-    display:grid;grid-template-columns:1fr 1fr;
-    gap:4rem;align-items:center;
-    max-width:1400px;margin:0 auto;width:100%;
-    position:relative;z-index:1;
-  }
-  .hero-badge{
-    display:inline-flex;align-items:center;gap:0.5rem;
-    background:rgba(255,107,0,0.12);border:1px solid rgba(255,107,0,0.3);
-    border-radius:100px;padding:0.4rem 1rem;
-    font-size:0.75rem;font-weight:700;color:var(--orange);
-    letter-spacing:0.08em;text-transform:uppercase;
-    margin-bottom:1.5rem;
-    animation:fadeUp 0.8s ease both;
-  }
-  .hero-badge .dot{width:6px;height:6px;background:var(--orange);border-radius:50%;animation:pulse 2s infinite;}
-  .hero-title{
-    font-family:'Clash Display',sans-serif;
-    font-size:clamp(3rem,5vw,5.5rem);
-    font-weight:700;line-height:1.0;
-    letter-spacing:-0.03em;color:var(--white);
-    margin-bottom:1.5rem;
-    animation:fadeUp 0.8s 0.1s ease both;
-  }
-  .hero-title .accent{color:var(--orange);}
-  .hero-sub{
-    font-size:1.1rem;color:var(--muted);
-    line-height:1.7;max-width:480px;
-    margin-bottom:2.5rem;
-    animation:fadeUp 0.8s 0.2s ease both;
-  }
-  .hero-actions{
-    display:flex;gap:1rem;flex-wrap:wrap;
-    animation:fadeUp 0.8s 0.3s ease both;
-  }
-  .btn-primary{
-    background:var(--orange);color:var(--white);
-    padding:0.9rem 2rem;border-radius:100px;
-    font-size:1rem;font-weight:700;text-decoration:none;
-    display:inline-flex;align-items:center;gap:0.5rem;
-    transition:all 0.25s;letter-spacing:0.01em;
-  }
-  .btn-primary:hover{background:var(--orange-light);transform:translateY(-2px);box-shadow:0 12px 40px rgba(255,107,0,0.35);}
-  .btn-ghost{
-    border:1.5px solid rgba(255,255,255,0.15);color:var(--text);
-    padding:0.9rem 2rem;border-radius:100px;
-    font-size:1rem;font-weight:600;text-decoration:none;
-    display:inline-flex;align-items:center;gap:0.5rem;
-    transition:all 0.25s;
-  }
-  .btn-ghost:hover{border-color:var(--orange);color:var(--orange);}
-  /* Vending Machine Visual */
-  .hero-visual{
-    display:flex;justify-content:center;align-items:center;
-    position:relative;animation:fadeUp 0.8s 0.2s ease both;
-  }
-  .vm-frame{
-    position:relative;width:340px;max-width:100%;
-    filter:drop-shadow(0 40px 80px rgba(255,107,0,0.3));
-  }
-  .vm-frame svg{width:100%;height:auto;}
-  .vm-label-side{
-    position:absolute;left:-90px;top:50%;transform:translateY(-50%) rotate(-90deg);
-    font-family:'Clash Display',sans-serif;
-    font-size:0.75rem;font-weight:700;letter-spacing:0.18em;
-    color:var(--orange);text-transform:uppercase;white-space:nowrap;
-  }
-  .vm-label-front{
-    position:absolute;bottom:-36px;left:50%;transform:translateX(-50%);
-    font-family:'Clash Display',sans-serif;
-    font-size:0.85rem;font-weight:700;letter-spacing:0.12em;
-    color:var(--white);text-transform:uppercase;
-    background:var(--orange);padding:0.3rem 1.2rem;border-radius:100px;
-    white-space:nowrap;
-  }
-  .orbit{
-    position:absolute;border:1px solid rgba(255,107,0,0.1);border-radius:50%;
-    animation:spin linear infinite;pointer-events:none;
-  }
-  .orbit-1{width:420px;height:420px;top:50%;left:50%;transform:translate(-50%,-50%);animation-duration:30s;}
-  .orbit-2{width:320px;height:320px;top:50%;left:50%;transform:translate(-50%,-50%);animation-duration:20s;animation-direction:reverse;}
+/* ── CURSOR ── */
+#cx,#cr{position:fixed;pointer-events:none;z-index:9999;border-radius:50%;transform:translate(-50%,-50%);}
+#cx{width:8px;height:8px;background:var(--o);transition:transform .15s,width .25s,height .25s;}
+#cr{width:28px;height:28px;border:1.5px solid rgba(255,69,0,.45);transition:width .35s,height .35s,border-color .35s;top:0;left:0;}
 
-  /* TICKER */
-  .ticker{
-    background:var(--orange);padding:0.7rem 0;overflow:hidden;
-    white-space:nowrap;position:relative;
-  }
-  .ticker-inner{
-    display:inline-flex;gap:3rem;animation:ticker 22s linear infinite;
-  }
-  .ticker-item{
-    font-family:'Clash Display',sans-serif;
-    font-size:0.85rem;font-weight:600;color:var(--white);
-    letter-spacing:0.06em;text-transform:uppercase;
-    display:inline-flex;align-items:center;gap:0.8rem;
-  }
-  .ticker-sep{color:rgba(255,255,255,0.5);}
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.1rem 3.5rem;
+  transition:all .4s;
+}
+nav.solid{background:rgba(6,6,6,.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);}
+.logo{
+  font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.04em;
+  color:var(--white);text-decoration:none;display:flex;align-items:center;gap:.15rem;
+}
+.logo em{color:var(--o);font-style:normal;}
+.nav-links{display:flex;gap:2.2rem;list-style:none;}
+.nav-links a{
+  font-size:.78rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--txt2);text-decoration:none;transition:color .2s;
+}
+.nav-links a:hover{color:var(--txt);}
+.nav-pill{
+  background:var(--o);color:#fff;padding:.5rem 1.3rem;border-radius:100px;
+  font-size:.78rem;font-weight:600;text-decoration:none;letter-spacing:.02em;
+  transition:all .22s;
+}
+.nav-pill:hover{background:var(--o2);transform:translateY(-1px);}
 
-  /* MENU SECTION */
-  .section{padding:6rem 4rem;max-width:1400px;margin:0 auto;}
-  .section-label{
-    font-size:0.75rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
-    color:var(--orange);margin-bottom:0.8rem;
-  }
-  .section-title{
-    font-family:'Clash Display',sans-serif;
-    font-size:clamp(2.2rem,4vw,3.8rem);font-weight:700;
-    line-height:1.05;letter-spacing:-0.03em;color:var(--white);
-    margin-bottom:1rem;
-  }
-  .section-sub{color:var(--muted);font-size:1.05rem;line-height:1.7;max-width:500px;margin-bottom:3rem;}
+/* ── CANVAS BG ── */
+#hero-canvas{position:absolute;inset:0;z-index:0;}
 
-  .menu-grid{
-    display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-    gap:1.5rem;
-  }
-  .menu-card{
-    background:var(--card-bg);
-    border:1px solid var(--card-border);
-    border-radius:20px;padding:1.8rem;
-    position:relative;overflow:hidden;
-    transition:all 0.3s cubic-bezier(.25,.46,.45,.94);
-    cursor:none;
-  }
-  .menu-card::before{
-    content:'';position:absolute;inset:0;
-    background:radial-gradient(ellipse at 50% 0%, rgba(255,107,0,0.08) 0%, transparent 70%);
-    opacity:0;transition:opacity 0.3s;
-  }
-  .menu-card:hover{
-    transform:translateY(-6px);
-    border-color:rgba(255,107,0,0.4);
-    box-shadow:0 20px 60px rgba(255,107,0,0.15);
-  }
-  .menu-card:hover::before{opacity:1;}
-  .menu-icon{
-    width:52px;height:52px;border-radius:14px;
-    background:rgba(255,107,0,0.12);
-    display:flex;align-items:center;justify-content:center;
-    font-size:1.6rem;margin-bottom:1.2rem;
-  }
-  .menu-num{
-    position:absolute;top:1.5rem;right:1.5rem;
-    font-family:'Clash Display',sans-serif;
-    font-size:2.5rem;font-weight:700;color:rgba(255,107,0,0.08);
-  }
-  .menu-name{
-    font-family:'Clash Display',sans-serif;
-    font-size:1.2rem;font-weight:700;color:var(--white);
-    margin-bottom:0.5rem;
-  }
-  .menu-items{
-    font-size:0.875rem;color:var(--muted);line-height:1.6;
-  }
-  .menu-tag{
-    display:inline-block;background:rgba(255,107,0,0.1);
-    border:1px solid rgba(255,107,0,0.2);border-radius:100px;
-    color:var(--orange-light);font-size:0.7rem;font-weight:700;
-    letter-spacing:0.06em;text-transform:uppercase;
-    padding:0.25rem 0.75rem;margin-top:1rem;
-  }
+/* ── HERO ── */
+.hero{
+  min-height:100vh;position:relative;overflow:hidden;
+  display:flex;align-items:center;
+}
+.hero-inner{
+  max-width:1320px;margin:0 auto;width:100%;
+  padding:8rem 3.5rem 5rem;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:4rem;align-items:center;
+  position:relative;z-index:1;
+}
+.hero-label{
+  display:inline-flex;align-items:center;gap:.55rem;
+  background:rgba(255,69,0,.1);border:1px solid rgba(255,69,0,.28);
+  border-radius:100px;padding:.32rem .9rem;
+  font-size:.7rem;font-weight:700;color:var(--o);
+  letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.6rem;
+}
+.live-dot{
+  width:7px;height:7px;background:var(--o);border-radius:50%;
+  box-shadow:0 0 0 0 rgba(255,69,0,.5);
+  animation:sonar 2s infinite;
+}
+@keyframes sonar{
+  0%{box-shadow:0 0 0 0 rgba(255,69,0,.5);}
+  70%{box-shadow:0 0 0 8px rgba(255,69,0,0);}
+  100%{box-shadow:0 0 0 0 rgba(255,69,0,0);}
+}
+.hero-h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(4rem,7vw,8rem);line-height:.92;
+  letter-spacing:.02em;color:var(--white);margin-bottom:1.8rem;
+}
+.hero-h1 .stroke{
+  -webkit-text-stroke:2px var(--o);color:transparent;
+  display:block;
+}
+.hero-h1 .fill{display:block;}
+.hero-sub{
+  font-size:1.05rem;color:var(--txt2);line-height:1.8;
+  max-width:440px;margin-bottom:2.8rem;font-weight:300;
+}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
+.btn-primary{
+  background:var(--o);color:#fff;padding:.9rem 2rem;border-radius:14px;
+  font-size:.9rem;font-weight:600;text-decoration:none;
+  display:inline-flex;align-items:center;gap:.6rem;
+  transition:all .25s;position:relative;overflow:hidden;
+}
+.btn-primary::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);
+  opacity:0;transition:opacity .25s;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 48px rgba(255,69,0,.4);}
+.btn-primary:hover::after{opacity:1;}
+.btn-ghost{
+  border:1.5px solid var(--border);color:var(--txt);
+  padding:.9rem 2rem;border-radius:14px;font-size:.9rem;font-weight:500;
+  text-decoration:none;display:inline-flex;align-items:center;gap:.6rem;
+  transition:all .25s;
+}
+.btn-ghost:hover{border-color:var(--border-o);color:var(--o);}
 
-  /* LOCATIONS */
-  .locations-section{
-    background:var(--off-black);padding:6rem 4rem;
-    border-top:1px solid rgba(255,107,0,0.08);
-    border-bottom:1px solid rgba(255,107,0,0.08);
-  }
-  .locations-inner{max-width:1400px;margin:0 auto;}
-  .locations-grid{
-    display:grid;grid-template-columns:1fr 1fr;
-    gap:4rem;align-items:start;margin-top:3rem;
-  }
-  .location-list{display:flex;flex-direction:column;gap:1rem;}
-  .location-item{
-    display:flex;align-items:center;gap:1.2rem;
-    padding:1.2rem 1.5rem;
-    background:var(--card-bg);border:1px solid var(--card-border);
-    border-radius:14px;
-    transition:all 0.25s;cursor:none;
-  }
-  .location-item:hover{
-    border-color:rgba(255,107,0,0.4);
-    transform:translateX(6px);
-  }
-  .loc-pin{
-    width:40px;height:40px;min-width:40px;
-    background:rgba(255,107,0,0.12);border-radius:10px;
-    display:flex;align-items:center;justify-content:center;
-    font-size:1.1rem;
-  }
-  .loc-name{font-weight:700;color:var(--white);font-size:0.95rem;margin-bottom:0.2rem;}
-  .loc-sub{font-size:0.8rem;color:var(--muted);}
-  /* Map placeholder */
-  .map-container{
-    background:var(--card-bg);border:1px solid var(--card-border);
-    border-radius:20px;overflow:hidden;
-    position:relative;min-height:420px;
-  }
-  .map-inner{
-    width:100%;height:420px;position:relative;
-    background:linear-gradient(135deg,#0f1a0f 0%,#0a1414 50%,#120a08 100%);
-    display:flex;align-items:center;justify-content:center;
-  }
-  /* Grid lines */
-  .map-inner::before{
-    content:'';position:absolute;inset:0;
-    background-image:
-      linear-gradient(rgba(255,107,0,0.04) 1px,transparent 1px),
-      linear-gradient(90deg,rgba(255,107,0,0.04) 1px,transparent 1px);
-    background-size:40px 40px;
-  }
-  .map-pins-svg{position:absolute;inset:0;width:100%;height:100%;}
-  .map-label{
-    font-family:'Clash Display',sans-serif;
-    color:rgba(255,107,0,0.15);font-size:3rem;font-weight:700;
-    letter-spacing:0.1em;text-transform:uppercase;
-    user-select:none;z-index:0;
-  }
+/* ── 3D VENDING MACHINE ── */
+.vm-scene{
+  perspective:1000px;
+  display:flex;justify-content:center;align-items:center;
+  position:relative;
+}
+.vm-3d{
+  width:280px;height:520px;position:relative;
+  transform-style:preserve-3d;
+  animation:vm-float 5s ease-in-out infinite;
+}
+@keyframes vm-float{
+  0%,100%{transform:rotateY(-8deg) rotateX(2deg) translateY(0);}
+  50%{transform:rotateY(8deg) rotateX(-2deg) translateY(-16px);}
+}
+.vm-face{position:absolute;backface-visibility:hidden;}
+.vm-front{
+  width:280px;height:520px;left:0;top:0;
+  background:linear-gradient(160deg,#FF4500,#CC3300);
+  border-radius:20px;
+  box-shadow:inset -8px 0 20px rgba(0,0,0,.3),inset 0 -8px 20px rgba(0,0,0,.2);
+}
+.vm-side{
+  width:60px;height:520px;left:280px;top:0;
+  background:linear-gradient(to right,#B33000,#882200);
+  border-radius:0 14px 14px 0;
+  transform:rotateY(90deg);transform-origin:left center;
+}
+.vm-top{
+  width:280px;height:60px;left:0;top:-60px;
+  background:linear-gradient(to bottom,#CC4400,#FF4500);
+  border-radius:14px 14px 0 0;
+  transform:rotateX(-90deg);transform-origin:bottom center;
+}
+/* Front face content */
+.vm-screen-area{
+  position:absolute;left:20px;right:60px;top:18px;
+  background:#0A0A0A;border-radius:14px;
+  height:310px;overflow:hidden;
+  box-shadow:inset 0 0 30px rgba(0,0,0,.8),0 0 0 1.5px rgba(255,69,0,.25);
+}
+.vm-glass{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.06),transparent 40%,rgba(255,255,255,.02));
+  border-radius:14px;pointer-events:none;z-index:10;
+}
+.vm-shelf{
+  position:absolute;left:0;right:0;height:2px;
+  background:rgba(255,69,0,.2);
+}
+.vm-item{
+  position:absolute;border-radius:5px;
+  animation:vm-shimmer 3s ease-in-out infinite;
+}
+@keyframes vm-shimmer{
+  0%,100%{opacity:.85;transform:scaleY(1);}
+  50%{opacity:1;transform:scaleY(1.03);}
+}
+.vm-panel{
+  position:absolute;right:10px;top:18px;bottom:18px;width:44px;
+  background:#111;border-radius:10px;
+  display:flex;flex-direction:column;align-items:center;gap:8px;padding:10px 6px;
+}
+.vm-display{
+  width:32px;height:22px;background:#0A1A0F;border-radius:4px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:7px;font-family:monospace;color:#00FF88;
+  border:1px solid rgba(0,255,136,.2);
+  text-shadow:0 0 8px #00FF88;
+}
+.vm-key{
+  width:14px;height:10px;border-radius:2px;
+  background:#1E1E1E;border:1px solid rgba(255,255,255,.08);
+}
+.vm-key-orange{background:#FF4500;border-color:#FF7433;box-shadow:0 0 8px rgba(255,69,0,.5);}
+.vm-dispense{
+  position:absolute;left:20px;right:60px;bottom:60px;
+  height:24px;background:#0A0A0A;border-radius:6px;
+  box-shadow:inset 0 2px 8px rgba(0,0,0,.8);
+}
+.vm-brand{
+  position:absolute;left:20px;right:60px;bottom:20px;
+  text-align:center;
+  font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:2px;
+  color:rgba(255,69,0,.7);
+  text-shadow:0 0 12px rgba(255,69,0,.4);
+}
+.vm-feet{
+  position:absolute;bottom:-8px;left:36px;right:76px;
+  display:flex;justify-content:space-between;
+}
+.vm-foot{width:48px;height:10px;background:#992200;border-radius:0 0 6px 6px;}
+/* Glow rings */
+.vm-glow{
+  position:absolute;border-radius:50%;pointer-events:none;
+  animation:glow-pulse 4s ease-in-out infinite;
+}
+.vm-glow-1{
+  width:420px;height:420px;
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  background:radial-gradient(circle,rgba(255,69,0,.12) 0%,transparent 65%);
+  animation-delay:0s;
+}
+.vm-glow-2{
+  width:300px;height:300px;
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  background:radial-gradient(circle,rgba(255,116,51,.08) 0%,transparent 65%);
+  animation-delay:-2s;
+}
+@keyframes glow-pulse{
+  0%,100%{opacity:.6;transform:translate(-50%,-50%) scale(1);}
+  50%{opacity:1;transform:translate(-50%,-50%) scale(1.08);}
+}
 
-  /* STATS */
-  .stats-row{
-    display:grid;grid-template-columns:repeat(4,1fr);
-    gap:1.5rem;padding:4rem;max-width:1400px;margin:0 auto;
-  }
-  .stat-card{
-    background:var(--card-bg);border:1px solid var(--card-border);
-    border-radius:18px;padding:2rem;text-align:center;
-    transition:all 0.3s;
-  }
-  .stat-card:hover{border-color:rgba(255,107,0,0.3);}
-  .stat-num{
-    font-family:'Clash Display',sans-serif;
-    font-size:2.8rem;font-weight:700;color:var(--orange);
-    margin-bottom:0.3rem;
-  }
-  .stat-label{font-size:0.875rem;color:var(--muted);font-weight:500;}
+/* ── TICKER ── */
+.ticker{
+  padding:.72rem 0;overflow:hidden;white-space:nowrap;
+  background:var(--o);position:relative;
+}
+.ticker::before,.ticker::after{
+  content:'';position:absolute;top:0;bottom:0;width:100px;z-index:2;
+}
+.ticker::before{left:0;background:linear-gradient(to right,var(--o),transparent);}
+.ticker::after{right:0;background:linear-gradient(to left,var(--o),transparent);}
+.ticker-track{display:inline-flex;gap:2.5rem;animation:scroll-left 22s linear infinite;}
+.ticker-track:hover{animation-play-state:paused;}
+@keyframes scroll-left{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.tick-item{
+  font-family:'Bebas Neue',sans-serif;font-size:.88rem;letter-spacing:.1em;
+  color:#fff;display:inline-flex;align-items:center;gap:.7rem;
+}
+.tick-sep{opacity:.4;font-size:.7rem;}
 
-  /* HOW IT WORKS */
-  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem;}
-  .step{
-    padding:2rem;background:var(--card-bg);border:1px solid var(--card-border);
-    border-radius:20px;position:relative;overflow:hidden;
-    transition:all 0.3s;
-  }
-  .step:hover{border-color:rgba(255,107,0,0.3);transform:translateY(-4px);}
-  .step-num{
-    font-family:'Clash Display',sans-serif;
-    font-size:5rem;font-weight:700;color:rgba(255,107,0,0.07);
-    position:absolute;top:-0.5rem;right:1rem;line-height:1;
-  }
-  .step-icon{font-size:2rem;margin-bottom:1rem;}
-  .step-title{font-family:'Clash Display',sans-serif;font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:0.5rem;}
-  .step-desc{font-size:0.9rem;color:var(--muted);line-height:1.6;}
+/* ── STATS ── */
+.stats-bar{
+  display:flex;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  background:var(--bg2);overflow:hidden;
+}
+.stat-box{
+  flex:1;padding:2.2rem 1.5rem;text-align:center;
+  border-right:1px solid var(--border);position:relative;overflow:hidden;
+  transition:background .3s;
+}
+.stat-box:last-child{border-right:none;}
+.stat-box:hover{background:rgba(255,69,0,.04);}
+.stat-box::before{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(to right,transparent,var(--o),transparent);
+  transform:scaleX(0);transition:transform .4s;
+}
+.stat-box:hover::before{transform:scaleX(1);}
+.stat-num{
+  font-family:'Bebas Neue',sans-serif;font-size:3.2rem;line-height:1;
+  color:var(--white);letter-spacing:.02em;
+}
+.stat-suffix{color:var(--o);}
+.stat-label{font-size:.72rem;color:var(--txt2);margin-top:.3rem;letter-spacing:.06em;text-transform:uppercase;}
 
-  /* CONTACT */
-  .contact-section{padding:6rem 4rem;max-width:1400px;margin:0 auto;}
-  .contact-grid{
-    display:grid;grid-template-columns:1fr 1fr;
-    gap:4rem;align-items:start;margin-top:3rem;
-  }
-  .contact-card{
-    background:var(--card-bg);border:1px solid var(--card-border);
-    border-radius:24px;padding:2.5rem;
-  }
-  .contact-method{
-    display:flex;align-items:center;gap:1.2rem;
-    padding:1.2rem 0;
-    border-bottom:1px solid rgba(255,255,255,0.05);
-  }
-  .contact-method:last-child{border-bottom:none;}
-  .c-icon{
-    width:48px;height:48px;min-width:48px;
-    background:rgba(255,107,0,0.1);border:1px solid rgba(255,107,0,0.2);
-    border-radius:12px;display:flex;align-items:center;justify-content:center;
-    font-size:1.2rem;
-  }
-  .c-label{font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;font-weight:600;margin-bottom:0.2rem;}
-  .c-value{font-size:1rem;font-weight:700;color:var(--white);}
-  .c-value a{color:var(--orange-light);text-decoration:none;}
-  /* Form */
-  .form-group{margin-bottom:1.2rem;}
-  .form-group label{display:block;font-size:0.8rem;font-weight:600;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.5rem;}
-  .form-group input,.form-group textarea,.form-group select{
-    width:100%;background:rgba(255,255,255,0.04);
-    border:1px solid rgba(255,255,255,0.08);border-radius:12px;
-    padding:0.85rem 1rem;color:var(--white);
-    font-family:'Cabinet Grotesk',sans-serif;font-size:0.95rem;
-    transition:border-color 0.2s;outline:none;
-  }
-  .form-group input:focus,.form-group textarea:focus,.form-group select:focus{
-    border-color:var(--orange);
-  }
-  .form-group textarea{resize:vertical;min-height:100px;}
-  .form-group select option{background:var(--off-black);}
-  .submit-btn{
-    width:100%;background:var(--orange);color:var(--white);
-    border:none;border-radius:100px;padding:1rem;
-    font-family:'Cabinet Grotesk',sans-serif;
-    font-size:1rem;font-weight:700;letter-spacing:0.02em;
-    cursor:none;transition:all 0.25s;
-  }
-  .submit-btn:hover{background:var(--orange-light);box-shadow:0 12px 40px rgba(255,107,0,0.4);}
+/* ── SECTION ── */
+.sec{padding:6rem 3.5rem;max-width:1320px;margin:0 auto;}
+.sec-badge{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-size:.65rem;font-weight:700;letter-spacing:.14em;color:var(--o);
+  text-transform:uppercase;margin-bottom:.9rem;
+}
+.sec-badge::before{content:'';width:20px;height:1.5px;background:var(--o);}
+.sec-h2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.6rem,5vw,5rem);line-height:.95;letter-spacing:.02em;
+  color:var(--white);margin-bottom:1rem;
+}
+.sec-p{
+  font-size:.96rem;color:var(--txt2);line-height:1.85;
+  max-width:480px;margin-bottom:3.5rem;font-weight:300;
+}
 
-  /* FOOTER */
-  footer{
-    border-top:1px solid rgba(255,107,0,0.08);
-    padding:3rem 4rem;display:flex;
-    align-items:center;justify-content:space-between;
-  }
-  .footer-logo{font-family:'Clash Display',sans-serif;font-size:1.2rem;font-weight:700;color:var(--white);}
-  .footer-logo span{color:var(--orange);}
-  .footer-copy{font-size:0.8rem;color:var(--muted);}
-  .footer-links{display:flex;gap:2rem;}
-  .footer-links a{font-size:0.8rem;color:var(--muted);text-decoration:none;transition:color 0.2s;}
-  .footer-links a:hover{color:var(--orange);}
+/* ── MENU CARDS — 3D FLIP ── */
+.menu-grid{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:16px;
+}
+.menu-card-wrap{perspective:800px;height:220px;}
+.menu-card-inner{
+  width:100%;height:100%;position:relative;transform-style:preserve-3d;
+  transition:transform .6s cubic-bezier(.4,0,.2,1);cursor:pointer;
+}
+.menu-card-wrap:hover .menu-card-inner{transform:rotateY(180deg);}
+.mc-front,.mc-back{
+  position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--radius);
+  border:1px solid var(--border);
+  display:flex;flex-direction:column;
+  padding:1.5rem 1.3rem;
+}
+.mc-front{
+  background:var(--card);
+  justify-content:space-between;
+}
+.mc-front:hover{border-color:var(--border-o);}
+.mc-back{
+  background:linear-gradient(135deg,rgba(255,69,0,.15),rgba(255,69,0,.05));
+  border-color:var(--border-o);
+  transform:rotateY(180deg);
+  justify-content:center;align-items:center;text-align:center;
+}
+.mc-num{font-size:.6rem;font-weight:700;color:var(--txt2);letter-spacing:.12em;text-transform:uppercase;}
+.mc-emoji{font-size:2.4rem;display:block;margin:auto 0;}
+.mc-title{
+  font-family:'Bebas Neue',sans-serif;font-size:1.2rem;
+  letter-spacing:.04em;color:var(--white);
+}
+.mc-tag{
+  display:inline-block;background:rgba(255,69,0,.12);
+  color:var(--o);border:1px solid rgba(255,69,0,.2);
+  padding:.18rem .65rem;border-radius:100px;
+  font-size:.63rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  margin-top:.6rem;align-self:flex-start;
+}
+.mc-back-desc{
+  font-size:.83rem;color:var(--txt);line-height:1.6;margin-top:.8rem;font-weight:300;
+}
+.mc-back-icon{font-size:3rem;}
 
-  /* ANIMATIONS */
-  @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
-  @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(0.8);}}
-  @keyframes spin{from{transform:translate(-50%,-50%) rotate(0deg);}to{transform:translate(-50%,-50%) rotate(360deg);}}
-  @keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
-  @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-16px);}}
-  @keyframes pinPulse{0%,100%{r:6;opacity:1;}50%{r:10;opacity:0.5;}}
+/* ── LOCATIONS ── */
+.loc-wrapper{
+  background:var(--bg2);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:6rem 0;
+}
+.loc-inner{max-width:1320px;margin:0 auto;padding:0 3.5rem;}
+.loc-layout{
+  display:grid;grid-template-columns:1fr 1.1fr;
+  gap:5rem;align-items:start;margin-top:3rem;
+}
+.loc-list-wrap{display:flex;flex-direction:column;}
+#loc-list .loc-row{
+  display:flex;align-items:center;gap:1rem;
+  padding:1.1rem 0;border-bottom:1px solid var(--border);
+  cursor:default;transition:all .2s;
+  animation:slide-in .4s ease both;
+}
+@keyframes slide-in{from{opacity:0;transform:translateX(-16px);}to{opacity:1;transform:translateX(0);}}
+#loc-list .loc-row:first-of-type{border-top:1px solid var(--border);}
+#loc-list .loc-row:hover .loc-name-txt{color:var(--o);}
+#loc-list .loc-row:hover .loc-pin-icon{background:rgba(255,69,0,.2);}
+.loc-pin-icon{
+  width:38px;height:38px;flex-shrink:0;
+  border-radius:10px;background:rgba(255,69,0,.1);
+  border:1px solid rgba(255,69,0,.2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;transition:background .2s;
+}
+.loc-name-txt{font-weight:600;font-size:.88rem;color:var(--txt);transition:color .2s;}
+.loc-sub-txt{font-size:.74rem;color:var(--txt2);margin-top:.1rem;}
+/* Map SVG container */
+.map-wrap{
+  position:sticky;top:100px;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:20px;overflow:hidden;
+  aspect-ratio:1;
+  box-shadow:0 20px 80px rgba(0,0,0,.6);
+}
+.map-wrap svg{width:100%;height:100%;}
+.map-lbl-tag{
+  position:absolute;top:14px;left:14px;
+  font-family:'Bebas Neue',sans-serif;font-size:.72rem;letter-spacing:.14em;
+  color:var(--txt2);background:rgba(0,0,0,.5);
+  padding:.25rem .6rem;border-radius:6px;backdrop-filter:blur(4px);
+}
+.map-pin-g{cursor:pointer;}
+.map-pin-g text{pointer-events:none;}
 
-  .float-anim{animation:float 5s ease-in-out infinite;}
-  
-  /* Scroll reveal */
-  .reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s cubic-bezier(.25,.46,.45,.94),transform 0.7s cubic-bezier(.25,.46,.45,.94);}
-  .reveal.visible{opacity:1;transform:none;}
+/* ── HOW IT WORKS ── */
+.steps-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:2px;background:var(--border);
+  border:1px solid var(--border);border-radius:20px;overflow:hidden;
+  margin-top:3rem;
+}
+.step-card{
+  background:var(--card);padding:2.5rem 2rem;
+  position:relative;transition:background .3s;
+  overflow:hidden;
+}
+.step-card:hover{background:var(--card2);}
+.step-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(to right,var(--o),var(--o2));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .4s ease;
+}
+.step-card:hover::before{transform:scaleX(1);}
+.step-num-big{
+  font-family:'Bebas Neue',sans-serif;font-size:5rem;line-height:1;
+  color:rgba(255,255,255,.04);letter-spacing:.02em;
+  position:absolute;top:1rem;right:1.5rem;
+}
+.step-icon-box{
+  width:50px;height:50px;border-radius:14px;
+  background:rgba(255,69,0,.12);border:1px solid rgba(255,69,0,.2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;margin-bottom:1.4rem;
+  transition:transform .3s;
+}
+.step-card:hover .step-icon-box{transform:scale(1.1) rotate(-3deg);}
+.step-title{
+  font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.04em;
+  color:var(--white);margin-bottom:.6rem;
+}
+.step-desc{font-size:.84rem;color:var(--txt2);line-height:1.75;font-weight:300;}
 
-  @media(max-width:900px){
-    nav{padding:1rem 1.5rem;}
-    .nav-links{display:none;}
-    .hero,.section,.contact-section,.locations-section>*{padding-left:1.5rem;padding-right:1.5rem;}
-    .hero-grid,.locations-grid,.contact-grid{grid-template-columns:1fr;}
-    .stats-row{grid-template-columns:repeat(2,1fr);padding:2rem 1.5rem;}
-    .steps{grid-template-columns:1fr;}
-    .vm-label-side{display:none;}
-    footer{flex-direction:column;gap:1.5rem;text-align:center;}
-  }
+/* ── CONTACT ── */
+.contact-bg{
+  background:var(--bg2);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.contact-grid{
+  display:grid;grid-template-columns:1fr 1.4fr;
+  gap:4rem;align-items:start;margin-top:3rem;
+}
+.contact-cards{display:flex;flex-direction:column;gap:.8rem;}
+.ci-row{
+  display:flex;align-items:center;gap:1rem;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:14px;padding:1.3rem 1.4rem;
+  transition:border-color .2s;
+}
+.ci-row:hover{border-color:var(--border-o);}
+.ci-ico{
+  width:38px;height:38px;flex-shrink:0;border-radius:10px;
+  background:rgba(255,69,0,.1);border:1px solid rgba(255,69,0,.15);
+  display:flex;align-items:center;justify-content:center;font-size:1rem;
+}
+.ci-label{font-size:.67rem;color:var(--txt2);letter-spacing:.06em;text-transform:uppercase;margin-bottom:.15rem;}
+.ci-value{font-size:.88rem;font-weight:500;color:var(--txt);}
+.ci-value a{color:inherit;text-decoration:none;}
+.ci-value a:hover{color:var(--o);}
+.wa-link{
+  display:flex;align-items:center;justify-content:center;gap:.7rem;
+  background:#128C7E;color:#fff;
+  padding:1rem;border-radius:14px;font-size:.88rem;font-weight:600;
+  text-decoration:none;margin-top:.5rem;transition:all .22s;
+}
+.wa-link:hover{filter:brightness(1.12);transform:translateY(-1px);}
+
+/* ── FORM ── */
+.form-wrap{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:20px;padding:2.2rem;
+  /* 3D tilt on hover */
+  transform-style:preserve-3d;
+  transition:transform .3s;
+}
+.form-wrap:hover{transform:perspective(1000px) rotateX(1deg) rotateY(-1deg);}
+.form-h{
+  font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.04em;
+  color:var(--white);margin-bottom:1.8rem;
+}
+.form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.fg{margin-bottom:1rem;}
+.fg label{
+  display:block;font-size:.68rem;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--txt2);margin-bottom:.4rem;
+}
+.fg input,.fg select,.fg textarea{
+  width:100%;background:rgba(255,255,255,.04);
+  border:1px solid var(--border);border-radius:10px;
+  padding:.72rem 1rem;font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:.88rem;color:var(--txt);outline:none;
+  transition:border-color .2s,background .2s;-webkit-appearance:none;
+}
+.fg input::placeholder,.fg textarea::placeholder{color:var(--txt2);}
+.fg input:focus,.fg select:focus,.fg textarea:focus{
+  border-color:rgba(255,69,0,.45);background:rgba(255,69,0,.04);
+}
+.fg select option{background:#161616;}
+.fg textarea{min-height:88px;resize:vertical;}
+.form-btn{
+  width:100%;background:var(--o);color:#fff;border:none;
+  padding:.92rem;border-radius:12px;
+  font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.08em;
+  cursor:pointer;transition:all .25s;margin-top:.3rem;
+  position:relative;overflow:hidden;
+}
+.form-btn::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.18),transparent);
+  opacity:0;transition:opacity .25s;
+}
+.form-btn:hover{background:var(--o2);transform:translateY(-1px);box-shadow:0 12px 40px rgba(255,69,0,.35);}
+.form-btn:hover::after{opacity:1;}
+.form-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+#fmsg{
+  margin-top:.9rem;padding:.7rem 1rem;border-radius:10px;
+  font-size:.82rem;display:none;
+}
+#fmsg.ok{background:rgba(22,163,74,.12);color:#22C55E;border:1px solid rgba(22,163,74,.2);}
+#fmsg.err{background:rgba(255,69,0,.1);color:var(--o);border:1px solid rgba(255,69,0,.2);}
+
+/* ── FOOTER ── */
+footer{
+  border-top:1px solid var(--border);
+  padding:2rem 3.5rem;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:1rem;
+}
+.f-logo{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.04em;color:var(--white);text-decoration:none;}
+.f-logo em{color:var(--o);font-style:normal;}
+.f-copy{font-size:.75rem;color:var(--txt2);}
+.f-nav{display:flex;gap:1.6rem;}
+.f-nav a{font-size:.75rem;color:var(--txt2);text-decoration:none;transition:color .2s;}
+.f-nav a:hover{color:var(--o);}
+
+/* ── SCROLL REVEAL ── */
+.sr{opacity:0;transform:translateY(28px);transition:opacity .7s,transform .7s;}
+.sr.vis{opacity:1;transform:translateY(0);}
+
+/* ── TOAST ── */
+#toast{
+  position:fixed;bottom:2rem;right:2rem;z-index:9000;
+  background:var(--card2);border:1px solid var(--border-o);
+  border-radius:12px;padding:.85rem 1.3rem;
+  font-size:.82rem;color:var(--txt);
+  transform:translateY(20px);opacity:0;
+  transition:all .3s;max-width:280px;
+  display:flex;align-items:center;gap:.6rem;
+}
+#toast.show{transform:translateY(0);opacity:1;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  nav{padding:.9rem 1.5rem;}
+  .nav-links{display:none;}
+  .hero-inner{grid-template-columns:1fr;padding:7rem 1.5rem 4rem;}
+  .vm-scene{display:none;}
+  .sec{padding:4rem 1.5rem;}
+  .menu-grid{grid-template-columns:repeat(2,1fr);}
+  .loc-layout{grid-template-columns:1fr;}
+  .map-wrap{display:none;}
+  .steps-grid{grid-template-columns:1fr;}
+  .contact-grid{grid-template-columns:1fr;}
+  .form-row-2{grid-template-columns:1fr;}
+  footer{padding:1.5rem;}
+  .stats-bar{flex-wrap:wrap;}
+  .stat-box{flex:50%;border-right:none;border-bottom:1px solid var(--border);}
+  .loc-wrapper,.contact-bg{padding:4rem 0;}
+}
 </style>
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursor-ring"></div>
+<div id="cx"></div>
+<div id="cr"></div>
+<div id="toast"></div>
 
 <!-- NAV -->
-<nav>
-  <div class="nav-logo">my<span>snacks</span>.ae</div>
+<nav id="nav">
+  <a href="#" class="logo">MY<em>SNACKS</em>.AE</a>
   <ul class="nav-links">
     <li><a href="#menu">Menu</a></li>
     <li><a href="#locations">Locations</a></li>
     <li><a href="#how">How It Works</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <a href="#contact" class="nav-cta">Get a Machine ↗</a>
+  <a href="#contact" class="nav-pill">Get a Machine →</a>
 </nav>
 
 <!-- HERO -->
 <section class="hero" id="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-grid">
-    <div class="hero-content">
-      <div class="hero-badge"><span class="dot"></span>Now in Dubai</div>
-      <h1 class="hero-title">Fresh Snacks,<br><span class="accent">Zero Effort.</span><br>Dubai Delivered.</h1>
-      <p class="hero-sub">Premium vending machines stocked with fresh fruits, juices, smoothies & healthy bars — placed in top offices & prime locations across Dubai.</p>
-      <div class="hero-actions">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-label"><span class="live-dot"></span> Now Live in Dubai</div>
+      <h1 class="hero-h1">
+        <span class="fill">FRESH</span>
+        <span class="stroke">SNACKS.</span>
+        <span class="fill">YOUR OFFICE.</span>
+      </h1>
+      <p class="hero-sub">Premium vending machines loaded with fresh fruits, cold-pressed juices & healthy bars — installed free in top Dubai offices.</p>
+      <div class="hero-btns">
         <a href="#locations" class="btn-primary">📍 Find a Machine</a>
         <a href="#contact" class="btn-ghost">Install at Your Office →</a>
       </div>
     </div>
-    <div class="hero-visual">
-      <div class="orbit orbit-1"></div>
-      <div class="orbit orbit-2"></div>
-      <div class="vm-frame float-anim">
-        <!-- Vending Machine SVG illustration -->
-        <svg viewBox="0 0 300 540" xmlns="http://www.w3.org/2000/svg">
-          <!-- Machine body -->
-          <rect x="20" y="10" width="260" height="510" rx="14" fill="#FF6B00"/>
-          <!-- Dark front panel -->
-          <rect x="30" y="20" width="200" height="460" rx="8" fill="#0D0D0D"/>
-          <!-- Glass window -->
-          <rect x="36" y="28" width="188" height="320" rx="6" fill="#111" stroke="rgba(255,107,0,0.3)" stroke-width="1"/>
-          <!-- Shelf 1 - chips bags -->
-          <rect x="38" y="84" width="184" height="2" fill="rgba(255,107,0,0.2)"/>
-          <rect x="46" y="52" width="28" height="32" rx="4" fill="#E8A020"/>
-          <rect x="82" y="52" width="28" height="32" rx="4" fill="#C0392B"/>
-          <rect x="118" y="52" width="28" height="32" rx="4" fill="#27AE60"/>
-          <rect x="154" y="52" width="28" height="32" rx="4" fill="#8E44AD"/>
-          <rect x="190" y="52" width="28" height="32" rx="4" fill="#2980B9"/>
-          <!-- Shelf 2 - bars -->
-          <rect x="38" y="152" width="184" height="2" fill="rgba(255,107,0,0.2)"/>
-          <rect x="46" y="118" width="28" height="32" rx="4" fill="#F39C12"/>
-          <rect x="82" y="118" width="28" height="32" rx="4" fill="#1ABC9C"/>
-          <rect x="118" y="118" width="28" height="32" rx="4" fill="#E74C3C"/>
-          <rect x="154" y="118" width="28" height="32" rx="4" fill="#9B59B6"/>
-          <rect x="190" y="118" width="28" height="32" rx="4" fill="#3498DB"/>
-          <!-- Shelf 3 - snack packs -->
-          <rect x="38" y="220" width="184" height="2" fill="rgba(255,107,0,0.2)"/>
-          <rect x="48" y="185" width="36" height="34" rx="6" fill="#F1C40F" opacity="0.9"/>
-          <rect x="92" y="185" width="36" height="34" rx="6" fill="#E67E22" opacity="0.9"/>
-          <rect x="136" y="185" width="36" height="34" rx="6" fill="#2ECC71" opacity="0.9"/>
-          <rect x="180" y="185" width="36" height="34" rx="6" fill="#E74C3C" opacity="0.9"/>
-          <!-- Shelf 4 - fruits -->
-          <rect x="38" y="288" width="184" height="2" fill="rgba(255,107,0,0.2)"/>
-          <!-- Apples -->
-          <circle cx="65" cy="260" r="14" fill="#C0392B"/>
-          <circle cx="95" cy="260" r="14" fill="#E74C3C"/>
-          <circle cx="125" cy="260" r="14" fill="#F39C12"/>
-          <!-- Banana -->
-          <path d="M145 270 Q165 250 185 265" stroke="#F1C40F" stroke-width="12" fill="none" stroke-linecap="round"/>
-          <!-- Oranges -->
-          <circle cx="200" cy="260" r="12" fill="#FF6B00"/>
-          <circle cx="218" cy="263" r="11" fill="#FF8C3A"/>
-          <!-- Shelf 5 - bottles -->
-          <rect x="38" y="342" width="184" height="2" fill="rgba(255,107,0,0.2)"/>
-          <rect x="55" y="300" width="20" height="42" rx="6" fill="#3498DB" opacity="0.8"/>
-          <rect x="82" y="300" width="20" height="42" rx="6" fill="#27AE60" opacity="0.8"/>
-          <rect x="109" y="300" width="20" height="42" rx="6" fill="#E74C3C" opacity="0.8"/>
-          <rect x="136" y="300" width="20" height="42" rx="6" fill="#F39C12" opacity="0.8"/>
-          <rect x="163" y="300" width="20" height="42" rx="6" fill="#9B59B6" opacity="0.8"/>
-          <rect x="190" y="300" width="20" height="42" rx="6" fill="#1ABC9C" opacity="0.8"/>
-          <!-- Control panel area -->
-          <rect x="240" y="160" width="38" height="120" rx="8" fill="#1A1A1A"/>
-          <!-- Screen -->
-          <rect x="244" y="166" width="30" height="22" rx="4" fill="#0D2436"/>
-          <rect x="246" y="168" width="26" height="18" rx="3" fill="#1A3A50"/>
-          <!-- Keypad -->
-          <rect x="246" y="196" width="8" height="8" rx="2" fill="#2A2A2A"/>
-          <rect x="258" y="196" width="8" height="8" rx="2" fill="#2A2A2A"/>
-          <rect x="246" y="208" width="8" height="8" rx="2" fill="#2A2A2A"/>
-          <rect x="258" y="208" width="8" height="8" rx="2" fill="#FF6B00"/>
-          <rect x="246" y="220" width="20" height="8" rx="2" fill="#1A1A1A" stroke="#FF6B00" stroke-width="1"/>
-          <!-- Card slot -->
-          <rect x="244" y="244" width="30" height="6" rx="3" fill="#2A2A2A"/>
-          <!-- Dispenser slot -->
-          <rect x="36" y="356" width="192" height="28" rx="4" fill="#0A0A0A"/>
-          <rect x="46" y="362" width="172" height="16" rx="3" fill="#151515"/>
-          <!-- Brand text on machine -->
-          <text x="128" y="408" text-anchor="middle" fill="rgba(255,107,0,0.9)" font-family="sans-serif" font-size="10" font-weight="bold" letter-spacing="2">mysnacks.ae</text>
-          <!-- Bottom feet -->
-          <rect x="50" y="506" width="40" height="12" rx="4" fill="#CC5500"/>
-          <rect x="210" y="506" width="40" height="12" rx="4" fill="#CC5500"/>
-        </svg>
-        <div class="vm-label-side">mysnacks.ae</div>
-        <div class="vm-label-front">mysnacks.ae</div>
+    <div class="vm-scene">
+      <div class="vm-glow vm-glow-1"></div>
+      <div class="vm-glow vm-glow-2"></div>
+      <div class="vm-3d">
+        <div class="vm-face vm-front">
+          <div class="vm-screen-area">
+            <div class="vm-glass"></div>
+            <!-- Row shelves -->
+            <div class="vm-shelf" style="top:72px"></div>
+            <div class="vm-shelf" style="top:144px"></div>
+            <div class="vm-shelf" style="top:216px"></div>
+            <!-- Row 1 items -->
+            <div class="vm-item" style="width:30px;height:38px;left:12px;top:26px;background:#E8A020;animation-delay:0s"></div>
+            <div class="vm-item" style="width:30px;height:38px;left:50px;top:26px;background:#C0392B;animation-delay:.3s"></div>
+            <div class="vm-item" style="width:30px;height:38px;left:88px;top:26px;background:#27AE60;animation-delay:.6s"></div>
+            <div class="vm-item" style="width:30px;height:38px;left:126px;top:26px;background:#8E44AD;animation-delay:.9s"></div>
+            <div class="vm-item" style="width:30px;height:38px;left:164px;top:26px;background:#2980B9;animation-delay:1.2s"></div>
+            <!-- Row 2 items -->
+            <div class="vm-item" style="width:30px;height:40px;left:12px;top:96px;background:#F39C12;animation-delay:.15s"></div>
+            <div class="vm-item" style="width:30px;height:40px;left:50px;top:96px;background:#1ABC9C;animation-delay:.45s"></div>
+            <div class="vm-item" style="width:30px;height:40px;left:88px;top:96px;background:#E74C3C;animation-delay:.75s"></div>
+            <div class="vm-item" style="width:30px;height:40px;left:126px;top:96px;background:#9B59B6;animation-delay:1.05s"></div>
+            <div class="vm-item" style="width:30px;height:40px;left:164px;top:96px;background:#3498DB;animation-delay:1.35s"></div>
+            <!-- Row 3 fruits -->
+            <div class="vm-item" style="width:26px;height:26px;border-radius:50%;left:14px;top:166px;background:#C0392B;animation-delay:.2s"></div>
+            <div class="vm-item" style="width:26px;height:26px;border-radius:50%;left:50px;top:166px;background:#F39C12;animation-delay:.5s"></div>
+            <div class="vm-item" style="width:26px;height:26px;border-radius:50%;left:86px;top:166px;background:#E74C3C;animation-delay:.8s"></div>
+            <div class="vm-item" style="width:36px;height:22px;border-radius:50%;left:120px;top:170px;background:#F1C40F;animation-delay:1.1s"></div>
+            <div class="vm-item" style="width:26px;height:26px;border-radius:50%;left:168px;top:166px;background:#FF4500;animation-delay:1.4s"></div>
+            <!-- Row 4 bottles -->
+            <div class="vm-item" style="width:22px;height:46px;border-radius:8px;left:14px;top:238px;background:#3498DB;opacity:.85;animation-delay:.1s"></div>
+            <div class="vm-item" style="width:22px;height:46px;border-radius:8px;left:46px;top:238px;background:#27AE60;opacity:.85;animation-delay:.4s"></div>
+            <div class="vm-item" style="width:22px;height:46px;border-radius:8px;left:78px;top:238px;background:#E74C3C;opacity:.85;animation-delay:.7s"></div>
+            <div class="vm-item" style="width:22px;height:46px;border-radius:8px;left:110px;top:238px;background:#F39C12;opacity:.85;animation-delay:1s"></div>
+            <div class="vm-item" style="width:22px;height:46px;border-radius:8px;left:142px;top:238px;background:#9B59B6;opacity:.85;animation-delay:1.3s"></div>
+          </div>
+          <div class="vm-panel">
+            <div class="vm-display">2.50</div>
+            <div class="vm-key"></div>
+            <div class="vm-key"></div>
+            <div class="vm-key"></div>
+            <div class="vm-key vm-key-orange"></div>
+            <div class="vm-key" style="width:22px;border-color:rgba(255,69,0,.3);"></div>
+          </div>
+          <div class="vm-dispense"></div>
+          <div class="vm-brand">mysnacks.ae</div>
+          <div class="vm-feet"><div class="vm-foot"></div><div class="vm-foot"></div></div>
+        </div>
+        <div class="vm-face vm-side"></div>
+        <div class="vm-face vm-top"></div>
       </div>
     </div>
   </div>
@@ -542,406 +663,457 @@
 
 <!-- TICKER -->
 <div class="ticker">
-  <div class="ticker-inner">
-    <span class="ticker-item">🍓 Fresh Fruits <span class="ticker-sep">•</span></span>
-    <span class="ticker-item">🥤 Cold Press Juices <span class="ticker-sep">•</span></span>
-    <span class="ticker-item">🥤 Smoothies <span class="ticker-sep">•</span></span>
-    <span class="ticker-item">🍫 Healthy Bars <span class="ticker-sep">•</span></span>
-    <span class="ticker-item">💧 Water Bottles <span class="ticker-sep">•</span></span>
-    <span class="ticker-item">📍 Prime Dubai Locations <span class="ticker-sep">•</span></span>
-    <span class="ticker-item">🍓 Fresh Fruits <span class="ticker-sep">•</span></span>
-    <span class="ticker-item">🥤 Cold Press Juices <span class="ticker-sep">•</span></span>
-    <span class="ticker-item">🥤 Smoothies <span class="ticker-sep">•</span></span>
-    <span class="ticker-item">🍫 Healthy Bars <span class="ticker-sep">•</span></span>
-    <span class="ticker-item">💧 Water Bottles <span class="ticker-sep">•</span></span>
-    <span class="ticker-item">📍 Prime Dubai Locations <span class="ticker-sep">•</span></span>
+  <div class="ticker-track">
+    <span class="tick-item">🍓 Fresh Fruits <span class="tick-sep">◆</span></span>
+    <span class="tick-item">🥤 Cold Press Juices <span class="tick-sep">◆</span></span>
+    <span class="tick-item">🥤 Smoothies <span class="tick-sep">◆</span></span>
+    <span class="tick-item">🍫 Healthy Bars <span class="tick-sep">◆</span></span>
+    <span class="tick-item">💧 Water Bottles <span class="tick-sep">◆</span></span>
+    <span class="tick-item">📍 Prime Dubai Spots <span class="tick-sep">◆</span></span>
+    <span class="tick-item">⚡ Zero Setup Cost <span class="tick-sep">◆</span></span>
+    <span class="tick-item">🌿 No Added Sugar <span class="tick-sep">◆</span></span>
+    <span class="tick-item">🍓 Fresh Fruits <span class="tick-sep">◆</span></span>
+    <span class="tick-item">🥤 Cold Press Juices <span class="tick-sep">◆</span></span>
+    <span class="tick-item">🥤 Smoothies <span class="tick-sep">◆</span></span>
+    <span class="tick-item">🍫 Healthy Bars <span class="tick-sep">◆</span></span>
+    <span class="tick-item">💧 Water Bottles <span class="tick-sep">◆</span></span>
+    <span class="tick-item">📍 Prime Dubai Spots <span class="tick-sep">◆</span></span>
+    <span class="tick-item">⚡ Zero Setup Cost <span class="tick-sep">◆</span></span>
+    <span class="tick-item">🌿 No Added Sugar <span class="tick-sep">◆</span></span>
   </div>
 </div>
 
 <!-- STATS -->
-<div class="stats-row">
-  <div class="stat-card reveal"><div class="stat-num" data-count="25">0</div><div class="stat-label">Locations in Dubai</div></div>
-  <div class="stat-card reveal"><div class="stat-num" data-count="5">0</div><div class="stat-label">Menu Categories</div></div>
-  <div class="stat-card reveal"><div class="stat-num" data-count="1000">0</div><div class="stat-label">Happy Customers/mo</div></div>
-  <div class="stat-card reveal"><div class="stat-num" data-count="24">0</div><div class="stat-label">Hours Available</div></div>
+<div class="stats-bar">
+  <div class="stat-box sr">
+    <div class="stat-num"><span class="count" data-target="25">0</span><span class="stat-suffix">+</span></div>
+    <div class="stat-label">Locations in Dubai</div>
+  </div>
+  <div class="stat-box sr">
+    <div class="stat-num"><span class="count" data-target="5">0</span></div>
+    <div class="stat-label">Menu Categories</div>
+  </div>
+  <div class="stat-box sr">
+    <div class="stat-num"><span class="count" data-target="1000">0</span><span class="stat-suffix">+</span></div>
+    <div class="stat-label">Happy Customers/mo</div>
+  </div>
+  <div class="stat-box sr">
+    <div class="stat-num"><span class="count" data-target="24">0</span><span class="stat-suffix">/7</span></div>
+    <div class="stat-label">Hours Available</div>
+  </div>
 </div>
 
 <!-- MENU -->
-<section class="section" id="menu">
-  <div class="section-label">What's Inside</div>
-  <h2 class="section-title">Only the Good Stuff</h2>
-  <p class="section-sub">Every machine is stocked with hand-picked fresh items — no junk, just fuel that keeps you going.</p>
-  <div class="menu-grid">
-    <div class="menu-card reveal">
-      <div class="menu-num">01</div>
-      <div class="menu-icon">🍓</div>
-      <div class="menu-name">Fresh Cut Fruits</div>
-      <div class="menu-items">Strawberry · Blueberry · Red Cherry · Mango · Green Grapes — freshly cut daily</div>
-      <div class="menu-tag">Daily Fresh</div>
-    </div>
-    <div class="menu-card reveal">
-      <div class="menu-num">02</div>
-      <div class="menu-icon">🥤</div>
-      <div class="menu-name">Fresh Juice Blends</div>
-      <div class="menu-items">Orange + Mango + Apple + Carrot + Watermelon — cold-pressed to order</div>
-      <div class="menu-tag">Cold Pressed</div>
-    </div>
-    <div class="menu-card reveal">
-      <div class="menu-num">03</div>
-      <div class="menu-icon">🥛</div>
-      <div class="menu-name">Smoothies</div>
-      <div class="menu-items">Strawberry Smoothie with Mixed Berries — thick, creamy, no sugar added</div>
-      <div class="menu-tag">No Added Sugar</div>
-    </div>
-    <div class="menu-card reveal">
-      <div class="menu-num">04</div>
-      <div class="menu-icon">🍫</div>
-      <div class="menu-name">Healthy Snack Bars</div>
-      <div class="menu-items">Nakd Bar & Larabar — plant-based, gluten-free, no refined sugar</div>
-      <div class="menu-tag">Plant Based</div>
-    </div>
-    <div class="menu-card reveal" style="grid-column:span 1;">
-      <div class="menu-num">05</div>
-      <div class="menu-icon">💧</div>
-      <div class="menu-name">Water Bottle</div>
-      <div class="menu-items">Pure still water — always chilled, always ready</div>
-      <div class="menu-tag">Chilled</div>
-    </div>
+<section class="sec" id="menu">
+  <div class="sec-badge sr">What's Inside</div>
+  <h2 class="sec-h2 sr">ONLY THE<br>GOOD STUFF</h2>
+  <p class="sec-p sr">Every machine is stocked with hand-picked fresh items — no junk, just fuel. <em>Hover a card to see details.</em></p>
+  <div class="menu-grid" id="menu-grid">
+    <!-- populated by JS from localStorage or defaults -->
   </div>
 </section>
 
 <!-- LOCATIONS -->
-<div class="locations-section" id="locations">
-  <div class="locations-inner">
-    <div class="section-label">Where We Are</div>
-    <h2 class="section-title">Prime Dubai Spots</h2>
-    <p class="section-sub">Our machines are placed in the city's most active offices, towers, and hubs — right where you need them.</p>
-    <div class="locations-grid">
-      <div class="location-list">
-        <div class="location-item reveal">
-          <div class="loc-pin">📍</div>
-          <div>
-            <div class="loc-name">DIFC — Dubai International Financial Centre</div>
-            <div class="loc-sub">Gate Village & Index Tower Lobbies</div>
-          </div>
-        </div>
-        <div class="location-item reveal">
-          <div class="loc-pin">📍</div>
-          <div>
-            <div class="loc-name">Business Bay</div>
-            <div class="loc-sub">Multiple corporate towers & co-working spaces</div>
-          </div>
-        </div>
-        <div class="location-item reveal">
-          <div class="loc-pin">📍</div>
-          <div>
-            <div class="loc-name">Dubai Media City</div>
-            <div class="loc-sub">Hub71 & media campus buildings</div>
-          </div>
-        </div>
-        <div class="location-item reveal">
-          <div class="loc-pin">📍</div>
-          <div>
-            <div class="loc-name">Downtown Dubai</div>
-            <div class="loc-sub">Emaar Square office complex</div>
-          </div>
-        </div>
-        <div class="location-item reveal">
-          <div class="loc-pin">📍</div>
-          <div>
-            <div class="loc-name">JLT — Jumeirah Lakes Towers</div>
-            <div class="loc-sub">Cluster D, G & X towers</div>
-          </div>
-        </div>
-        <div class="location-item reveal">
-          <div class="loc-pin">📍</div>
-          <div>
-            <div class="loc-name">Dubai Silicon Oasis</div>
-            <div class="loc-sub">Tech hub & startup campus floors</div>
+<div class="loc-wrapper" id="locations">
+  <div class="loc-inner">
+    <div class="sec-badge sr">Where We Are</div>
+    <h2 class="sec-h2 sr">PRIME<br>DUBAI SPOTS</h2>
+    <p class="sec-p sr">Our machines are placed in the city's most active offices and towers — right where you need them.</p>
+    <div class="loc-layout">
+      <div class="loc-list-wrap">
+        <div id="loc-list">
+          <div style="color:var(--txt2);padding:2rem;display:flex;gap:.6rem;align-items:center;">
+            <div style="width:14px;height:14px;border:2px solid var(--border);border-top-color:var(--o);border-radius:50%;animation:spin-s .6s linear infinite;"></div>
+            Loading…
           </div>
         </div>
       </div>
-      <!-- Map -->
-      <div class="map-container reveal">
-        <div class="map-inner">
-          <span class="map-label">DUBAI</span>
-          <svg class="map-pins-svg" viewBox="0 0 400 420" xmlns="http://www.w3.org/2000/svg">
-            <!-- Decorative roads -->
-            <line x1="60" y1="210" x2="340" y2="210" stroke="rgba(255,107,0,0.06)" stroke-width="8"/>
-            <line x1="200" y1="60" x2="200" y2="360" stroke="rgba(255,107,0,0.06)" stroke-width="8"/>
-            <path d="M60 140 Q200 100 340 160" stroke="rgba(255,107,0,0.05)" stroke-width="6" fill="none"/>
-            <!-- Pins -->
-            <!-- DIFC -->
-            <g transform="translate(230,180)">
-              <circle r="22" fill="rgba(255,107,0,0.12)" stroke="rgba(255,107,0,0.3)" stroke-width="1"/>
-              <circle r="6" fill="#FF6B00"/>
-              <circle r="22" fill="none" stroke="rgba(255,107,0,0.2)" stroke-width="1">
-                <animate attributeName="r" values="8;22;8" dur="2.5s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.8;0;0.8" dur="2.5s" repeatCount="indefinite"/>
-              </circle>
-              <text x="0" y="36" text-anchor="middle" fill="rgba(255,107,0,0.8)" font-size="9" font-family="sans-serif" font-weight="700">DIFC</text>
-            </g>
-            <!-- Business Bay -->
-            <g transform="translate(200,220)">
-              <circle r="20" fill="rgba(255,107,0,0.12)" stroke="rgba(255,107,0,0.3)" stroke-width="1"/>
-              <circle r="6" fill="#FF6B00"/>
-              <circle r="20" fill="none" stroke="rgba(255,107,0,0.2)" stroke-width="1">
-                <animate attributeName="r" values="8;20;8" dur="3s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.8;0;0.8" dur="3s" repeatCount="indefinite"/>
-              </circle>
-              <text x="0" y="34" text-anchor="middle" fill="rgba(255,107,0,0.8)" font-size="8" font-family="sans-serif" font-weight="700">B.BAY</text>
-            </g>
-            <!-- Media City -->
-            <g transform="translate(120,160)">
-              <circle r="18" fill="rgba(255,107,0,0.12)" stroke="rgba(255,107,0,0.3)" stroke-width="1"/>
-              <circle r="5" fill="#FF6B00"/>
-              <circle r="18" fill="none" stroke="rgba(255,107,0,0.2)" stroke-width="1">
-                <animate attributeName="r" values="7;18;7" dur="2s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.8;0;0.8" dur="2s" repeatCount="indefinite"/>
-              </circle>
-              <text x="0" y="32" text-anchor="middle" fill="rgba(255,107,0,0.8)" font-size="8" font-family="sans-serif" font-weight="700">DMC</text>
-            </g>
-            <!-- Downtown -->
-            <g transform="translate(260,240)">
-              <circle r="18" fill="rgba(255,107,0,0.12)" stroke="rgba(255,107,0,0.3)" stroke-width="1"/>
-              <circle r="5" fill="#FF8C3A"/>
-              <circle r="18" fill="none" stroke="rgba(255,107,0,0.15)" stroke-width="1">
-                <animate attributeName="r" values="7;18;7" dur="3.5s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.8;0;0.8" dur="3.5s" repeatCount="indefinite"/>
-              </circle>
-              <text x="0" y="32" text-anchor="middle" fill="rgba(255,107,0,0.8)" font-size="8" font-family="sans-serif" font-weight="700">DT</text>
-            </g>
-            <!-- JLT -->
-            <g transform="translate(100,240)">
-              <circle r="16" fill="rgba(255,107,0,0.12)" stroke="rgba(255,107,0,0.3)" stroke-width="1"/>
-              <circle r="5" fill="#FF8C3A"/>
-              <circle r="16" fill="none" stroke="rgba(255,107,0,0.15)" stroke-width="1">
-                <animate attributeName="r" values="7;16;7" dur="2.8s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.8;0;0.8" dur="2.8s" repeatCount="indefinite"/>
-              </circle>
-              <text x="0" y="30" text-anchor="middle" fill="rgba(255,107,0,0.8)" font-size="8" font-family="sans-serif" font-weight="700">JLT</text>
-            </g>
-            <!-- DSO -->
-            <g transform="translate(310,190)">
-              <circle r="16" fill="rgba(255,107,0,0.12)" stroke="rgba(255,107,0,0.3)" stroke-width="1"/>
-              <circle r="5" fill="#FF8C3A"/>
-              <circle r="16" fill="none" stroke="rgba(255,107,0,0.15)" stroke-width="1">
-                <animate attributeName="r" values="7;16;7" dur="4s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.8;0;0.8" dur="4s" repeatCount="indefinite"/>
-              </circle>
-              <text x="0" y="30" text-anchor="middle" fill="rgba(255,107,0,0.8)" font-size="8" font-family="sans-serif" font-weight="700">DSO</text>
-            </g>
-          </svg>
-        </div>
+      <div class="map-wrap" style="position:relative;">
+        <span class="map-lbl-tag">Dubai — UAE</span>
+        <svg id="map-svg" viewBox="0 0 400 420" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="420" fill="#0C0C0C"/>
+          <!-- roads -->
+          <path d="M60 200 Q200 155 340 195" stroke="rgba(255,255,255,.04)" stroke-width="8" fill="none"/>
+          <path d="M80 250 Q200 218 320 248" stroke="rgba(255,255,255,.03)" stroke-width="5" fill="none"/>
+          <line x1="200" y1="0" x2="200" y2="420" stroke="rgba(255,255,255,.025)" stroke-width="3"/>
+          <!-- dubai outline -->
+          <path d="M78 178 Q148 138 200 152 Q262 138 322 168 Q352 188 342 228 Q322 268 282 278 Q242 288 200 283 Q158 278 118 268 Q78 253 73 228 Z"
+            fill="rgba(255,69,0,.025)" stroke="rgba(255,69,0,.07)" stroke-width="1" stroke-dasharray="4,4"/>
+          <!-- Pins rendered by JS -->
+          <g id="map-pins"></g>
+        </svg>
       </div>
     </div>
   </div>
 </div>
 
 <!-- HOW IT WORKS -->
-<section class="section" id="how">
-  <div class="section-label">Process</div>
-  <h2 class="section-title">How It Works</h2>
-  <p class="section-sub">Getting a MySnacks machine at your office is completely hassle-free.</p>
-  <div class="steps">
-    <div class="step reveal">
-      <div class="step-num">01</div>
-      <div class="step-icon">📋</div>
-      <div class="step-title">Request Installation</div>
-      <div class="step-desc">Fill out our quick form with your location details and number of employees. We'll get back within 24 hours.</div>
+<section class="sec" id="how">
+  <div class="sec-badge sr">Process</div>
+  <h2 class="sec-h2 sr">HOW IT<br>WORKS</h2>
+  <p class="sec-p sr">Getting a MySnacks machine at your office is completely hassle-free and costs you nothing.</p>
+  <div class="steps-grid">
+    <div class="step-card sr">
+      <div class="step-num-big">01</div>
+      <div class="step-icon-box">📋</div>
+      <div class="step-title">REQUEST INSTALLATION</div>
+      <div class="step-desc">Fill out our quick form with your location and team size. We reply within 24 hours.</div>
     </div>
-    <div class="step reveal">
-      <div class="step-num">02</div>
-      <div class="step-icon">🔧</div>
-      <div class="step-title">We Set Up — Free</div>
-      <div class="step-desc">Our team installs and configures the machine at no cost to you. Zero maintenance work on your end ever.</div>
+    <div class="step-card sr">
+      <div class="step-num-big">02</div>
+      <div class="step-icon-box">🔧</div>
+      <div class="step-title">WE SET UP — FREE</div>
+      <div class="step-desc">Our team installs and configures the machine at zero cost. No maintenance, ever.</div>
     </div>
-    <div class="step reveal">
-      <div class="step-num">03</div>
-      <div class="step-icon">🔄</div>
-      <div class="step-title">Fresh Restocks, Always</div>
-      <div class="step-desc">We manage all restocking and freshness checks. Your team just walks up and enjoys.</div>
+    <div class="step-card sr">
+      <div class="step-num-big">03</div>
+      <div class="step-icon-box">🔄</div>
+      <div class="step-title">FRESH RESTOCKS</div>
+      <div class="step-desc">We handle all restocking and freshness checks. Your team just grabs what they need.</div>
     </div>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section class="contact-section" id="contact">
-  <div class="section-label">Get in Touch</div>
-  <h2 class="section-title">Install at Your Office</h2>
-  <p class="section-sub">Whether you want a machine for your office or just want to ask us something — we're fast to respond.</p>
+<div class="contact-bg">
+<section class="sec" id="contact">
+  <div class="sec-badge sr">Get in Touch</div>
+  <h2 class="sec-h2 sr">INSTALL AT<br>YOUR OFFICE</h2>
+  <p class="sec-p sr">Fill the form or reach us directly — we're fast to respond.</p>
   <div class="contact-grid">
-    <div>
-      <div class="contact-card reveal" style="margin-bottom:1.5rem;">
-        <div class="contact-method">
-          <div class="c-icon">📞</div>
-          <div>
-            <div class="c-label">Phone / WhatsApp</div>
-            <div class="c-value"><a href="tel:+971500000000">+971 50 000 0000</a></div>
-          </div>
-        </div>
-        <div class="contact-method">
-          <div class="c-icon">✉️</div>
-          <div>
-            <div class="c-label">Email</div>
-            <div class="c-value"><a href="mailto:hello@mysnacks.ae">hello@mysnacks.ae</a></div>
-          </div>
-        </div>
-        <div class="contact-method">
-          <div class="c-icon">📍</div>
-          <div>
-            <div class="c-label">Based In</div>
-            <div class="c-value">Dubai, United Arab Emirates</div>
-          </div>
-        </div>
-        <div class="contact-method">
-          <div class="c-icon">⏱</div>
-          <div>
-            <div class="c-label">Response Time</div>
-            <div class="c-value">Under 24 Hours</div>
-          </div>
+    <div class="contact-cards sr">
+      <div class="ci-row">
+        <div class="ci-ico">📞</div>
+        <div>
+          <div class="ci-label">Phone / WhatsApp</div>
+          <div class="ci-value"><a href="tel:+971500000000">+971 50 000 0000</a></div>
         </div>
       </div>
-      <!-- WhatsApp quick button -->
-      <a href="https://wa.me/971500000000?text=Hi%2C%20I'm%20interested%20in%20a%20MySnacks%20vending%20machine%20for%20my%20office." 
-         class="btn-primary reveal" style="display:inline-flex;width:100%;justify-content:center;border-radius:14px;padding:1rem;">
-        💬 WhatsApp Us Directly
+      <div class="ci-row">
+        <div class="ci-ico">✉️</div>
+        <div>
+          <div class="ci-label">Email</div>
+          <div class="ci-value"><a href="mailto:hello@mysnacks.ae">hello@mysnacks.ae</a></div>
+        </div>
+      </div>
+      <div class="ci-row">
+        <div class="ci-ico">📍</div>
+        <div>
+          <div class="ci-label">Based In</div>
+          <div class="ci-value">Dubai, UAE</div>
+        </div>
+      </div>
+      <div class="ci-row">
+        <div class="ci-ico">⏱</div>
+        <div>
+          <div class="ci-label">Response Time</div>
+          <div class="ci-value">Under 24 Hours</div>
+        </div>
+      </div>
+      <a href="https://wa.me/971500000000?text=Hi%2C%20I'm%20interested%20in%20a%20MySnacks%20machine%20for%20my%20office." class="wa-link">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        WhatsApp Us Directly
       </a>
     </div>
-    <div class="contact-card reveal">
-      <div style="font-family:'Clash Display',sans-serif;font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:1.5rem;">Request an Installation</div>
-      <div class="form-group">
-        <label>Your Name</label>
-        <input type="text" placeholder="Ahmed Al Rashidi">
+    <div class="form-wrap sr">
+      <div class="form-h">Request an Installation</div>
+      <div class="form-row-2">
+        <div class="fg">
+          <label>Your Name *</label>
+          <input type="text" id="fn" placeholder="Ahmed Al Rashidi">
+        </div>
+        <div class="fg">
+          <label>Company *</label>
+          <input type="text" id="fc" placeholder="Acme Corp LLC">
+        </div>
       </div>
-      <div class="form-group">
-        <label>Company Name</label>
-        <input type="text" placeholder="Acme Corp LLC">
+      <div class="fg">
+        <label>Phone / WhatsApp *</label>
+        <input type="tel" id="fp" placeholder="+971 50 000 0000">
       </div>
-      <div class="form-group">
-        <label>Phone / WhatsApp</label>
-        <input type="tel" placeholder="+971 50 000 0000">
+      <div class="form-row-2">
+        <div class="fg">
+          <label>Office Location *</label>
+          <select id="fl">
+            <option value="">Select Area</option>
+            <option>DIFC</option>
+            <option>Business Bay</option>
+            <option>Downtown Dubai</option>
+            <option>Dubai Media City</option>
+            <option>JLT</option>
+            <option>Dubai Silicon Oasis</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>Team Size</label>
+          <select id="fs">
+            <option value="">Select Range</option>
+            <option>10–50</option>
+            <option>50–150</option>
+            <option>150–500</option>
+            <option>500+</option>
+          </select>
+        </div>
       </div>
-      <div class="form-group">
-        <label>Office Location</label>
-        <select>
-          <option value="">Select Area</option>
-          <option>DIFC</option>
-          <option>Business Bay</option>
-          <option>Downtown Dubai</option>
-          <option>Dubai Media City</option>
-          <option>JLT</option>
-          <option>Dubai Silicon Oasis</option>
-          <option>Other</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Number of Employees</label>
-        <select>
-          <option value="">Select Range</option>
-          <option>10–50</option>
-          <option>50–150</option>
-          <option>150–500</option>
-          <option>500+</option>
-        </select>
-      </div>
-      <div class="form-group">
+      <div class="fg">
         <label>Message (Optional)</label>
-        <textarea placeholder="Tell us anything — floor number, preferred placement, questions..."></textarea>
+        <textarea id="fm" placeholder="Floor, placement notes, questions…"></textarea>
       </div>
-      <button class="submit-btn">Send Request →</button>
+      <button class="form-btn" id="fbtn">SEND REQUEST →</button>
+      <div id="fmsg"></div>
     </div>
   </div>
 </section>
+</div>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">my<span>snacks</span>.ae</div>
-  <div class="footer-copy">© 2025 MySnacks.ae — Dubai, UAE. All rights reserved.</div>
-  <div class="footer-links">
+  <a href="#" class="f-logo">MY<em>SNACKS</em>.AE</a>
+  <div class="f-copy">© 2025 MySnacks.ae — Dubai, UAE. All rights reserved.</div>
+  <div class="f-nav">
     <a href="#menu">Menu</a>
     <a href="#locations">Locations</a>
     <a href="#contact">Contact</a>
+    <a href="admin/index.html" style="color:var(--txt2);opacity:.4;">Admin</a>
   </div>
 </footer>
 
+<style>
+@keyframes spin-s{to{transform:rotate(360deg);}}
+</style>
+
 <script>
-// CURSOR
-const cursor = document.getElementById('cursor');
-const ring = document.getElementById('cursor-ring');
+/* ═══════════════════════════════════════════
+   SHARED DATA — localStorage keys:
+   ms_locations  → [{id,name,sub,x,y,label}]
+   ms_menu       → [{num,emoji,title,desc,tag}]
+   ms_requests   → [{id,name,company,phone,location,size,msg,date,read}]
+═══════════════════════════════════════════ */
+
+const DEFAULT_LOCATIONS = [
+  {id:'l1',name:'DIFC — Dubai International Financial Centre',sub:'Gate Village & Index Tower Lobbies',x:230,y:178,label:'DIFC'},
+  {id:'l2',name:'Business Bay',sub:'Multiple corporate towers & co-working spaces',x:200,y:222,label:'B.BAY'},
+  {id:'l3',name:'Dubai Media City',sub:'Hub71 & media campus buildings',x:118,y:160,label:'DMC'},
+  {id:'l4',name:'Downtown Dubai',sub:'Emaar Square office complex',x:262,y:242,label:'DT'},
+  {id:'l5',name:'JLT — Jumeirah Lakes Towers',sub:'Cluster D, G & X towers',x:98,y:242,label:'JLT'},
+  {id:'l6',name:'Dubai Silicon Oasis',sub:'Tech hub & startup campus floors',x:314,y:192,label:'DSO'},
+];
+const DEFAULT_MENU = [
+  {num:'01',emoji:'🍓',title:'Fresh Cut Fruits',desc:'Strawberry · Blueberry · Cherry · Mango · Green Grapes — cut fresh daily',tag:'Daily Fresh'},
+  {num:'02',emoji:'🥤',title:'Fresh Juice Blends',desc:'Orange · Mango · Apple · Carrot · Watermelon — cold-pressed to order',tag:'Cold Pressed'},
+  {num:'03',emoji:'🥛',title:'Smoothies',desc:'Strawberry Smoothie with Mixed Berries — thick, creamy, zero added sugar',tag:'No Added Sugar'},
+  {num:'04',emoji:'🍫',title:'Healthy Snack Bars',desc:'Nakd Bar & Larabar — plant-based, gluten-free, no refined sugar',tag:'Plant Based'},
+  {num:'05',emoji:'💧',title:'Water Bottle',desc:'Pure still water — always chilled, always ready',tag:'Always Chilled'},
+];
+
+function getData(key,def){try{const d=localStorage.getItem(key);return d?JSON.parse(d):def;}catch{return def;}}
+function setData(key,val){try{localStorage.setItem(key,JSON.stringify(val));}catch{}}
+
+/* ─── CURSOR ─── */
+const CX=document.getElementById('cx'),CR=document.getElementById('cr');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{
   mx=e.clientX;my=e.clientY;
-  cursor.style.left=mx+'px';cursor.style.top=my+'px';
+  CX.style.cssText=`left:${mx}px;top:${my}px;`;
 });
-function animRing(){
-  rx+=(mx-rx)*0.1;ry+=(my-ry)*0.1;
-  ring.style.left=rx+'px';ring.style.top=ry+'px';
-  requestAnimationFrame(animRing);
-}animRing();
-document.querySelectorAll('a,button,.menu-card,.location-item,.step,.stat-card').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{
-    cursor.style.width='20px';cursor.style.height='20px';
-    ring.style.width='60px';ring.style.height='60px';
-    ring.style.borderColor='rgba(255,107,0,0.8)';
-  });
-  el.addEventListener('mouseleave',()=>{
-    cursor.style.width='12px';cursor.style.height='12px';
-    ring.style.width='36px';ring.style.height='36px';
-    ring.style.borderColor='rgba(255,107,0,0.7)';
-  });
+(function raf(){
+  rx+=(mx-rx)*.11;ry+=(my-ry)*.11;
+  CR.style.cssText=`left:${rx}px;top:${ry}px;`;
+  requestAnimationFrame(raf);
+})();
+document.querySelectorAll('a,button,.menu-card-wrap,.loc-row,.step-card,.stat-box').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{CX.style.width='16px';CX.style.height='16px';CR.style.width='50px';CR.style.height='50px';CR.style.borderColor='rgba(255,69,0,.65)';});
+  el.addEventListener('mouseleave',()=>{CX.style.width='8px';CX.style.height='8px';CR.style.width='28px';CR.style.height='28px';CR.style.borderColor='rgba(255,69,0,.45)';});
 });
 
-// SCROLL REVEAL
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){e.target.classList.add('visible');}
-  });
-},{threshold:0.1,rootMargin:'0px 0px -60px 0px'});
-document.querySelectorAll('.reveal').forEach((el,i)=>{
-  el.style.transitionDelay=(i%5)*0.08+'s';
-  observer.observe(el);
-});
+/* ─── NAV ─── */
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('solid',scrollY>60),{passive:true});
 
-// COUNT UP
-function countUp(el,target,suffix=''){
-  let start=0;
-  const dur=1800;const step=dur/60;
-  const inc=target/60;
-  const timer=setInterval(()=>{
-    start+=inc;
-    if(start>=target){start=target;clearInterval(timer);}
-    el.textContent=Math.floor(start)+(suffix);
-  },step);
-}
-const statsObserver=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
+/* ─── HERO CANVAS PARTICLES ─── */
+(()=>{
+  const c=document.getElementById('hero-canvas');
+  if(!c)return;
+  const ctx=c.getContext('2d');
+  let W,H,pts=[];
+  function resize(){
+    W=c.width=c.offsetWidth;H=c.height=c.offsetHeight;
+    pts=Array.from({length:70},()=>({
+      x:Math.random()*W,y:Math.random()*H,
+      vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,
+      r:Math.random()*1.4+.4,
+      a:Math.random(),
+    }));
+  }
+  resize();
+  new ResizeObserver(resize).observe(c);
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    // lines
+    for(let i=0;i<pts.length;i++){
+      for(let j=i+1;j<pts.length;j++){
+        const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y;
+        const d=Math.sqrt(dx*dx+dy*dy);
+        if(d<120){
+          ctx.strokeStyle=`rgba(255,69,0,${.07*(1-d/120)})`;
+          ctx.lineWidth=.5;
+          ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.stroke();
+        }
+      }
+    }
+    // dots
+    pts.forEach(p=>{
+      ctx.fillStyle=`rgba(255,69,0,${p.a*.5})`;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0||p.x>W)p.vx*=-1;
+      if(p.y<0||p.y>H)p.vy*=-1;
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ─── SCROLL REVEAL ─── */
+const ro=new IntersectionObserver(es=>{
+  es.forEach((e,i)=>{if(e.isIntersecting){e.target.style.transitionDelay=`${(i%5)*.08}s`;e.target.classList.add('vis');}});
+},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.sr').forEach(el=>ro.observe(el));
+
+/* ─── COUNT UP ─── */
+const co=new IntersectionObserver(es=>{
+  es.forEach(e=>{
     if(e.isIntersecting){
-      const el=e.target;
-      const target=parseInt(el.getAttribute('data-count'));
-      const suffix=target===24?'/7':target===1000?'+':'';
-      countUp(el,target,suffix);
-      statsObserver.unobserve(el);
+      document.querySelectorAll('.count').forEach(el=>{
+        const t=+el.dataset.target,dur=1600,fr=60,inc=t/fr;
+        let v=0;const iv=setInterval(()=>{v+=inc;if(v>=t){v=t;clearInterval(iv);}el.textContent=Math.floor(v);},dur/fr);
+      });
+      co.disconnect();
     }
   });
-},{threshold:0.5});
-document.querySelectorAll('[data-count]').forEach(el=>statsObserver.observe(el));
+},{threshold:.5});
+document.querySelector('.stats-bar')&&co.observe(document.querySelector('.stats-bar'));
 
-// NAV scroll effect
-window.addEventListener('scroll',()=>{
-  document.querySelector('nav').style.background=
-    window.scrollY>50?'rgba(10,10,10,0.95)':'rgba(10,10,10,0.7)';
+/* ─── RENDER MENU ─── */
+function renderMenu(){
+  const items=getData('ms_menu',DEFAULT_MENU);
+  const g=document.getElementById('menu-grid');
+  if(!g)return;
+  g.innerHTML=items.map(m=>`
+    <div class="menu-card-wrap sr">
+      <div class="menu-card-inner">
+        <div class="mc-front">
+          <div class="mc-num">${m.num||''}</div>
+          <span class="mc-emoji">${m.emoji}</span>
+          <div>
+            <div class="mc-title">${m.title}</div>
+            <span class="mc-tag">${m.tag}</span>
+          </div>
+        </div>
+        <div class="mc-back">
+          <div class="mc-back-icon">${m.emoji}</div>
+          <div class="mc-title" style="margin-top:.6rem">${m.title}</div>
+          <div class="mc-back-desc">${m.desc}</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  g.querySelectorAll('.sr').forEach(el=>ro.observe(el));
+}
+renderMenu();
+
+/* ─── RENDER LOCATIONS + MAP PINS ─── */
+function renderLocations(){
+  const locs=getData('ms_locations',DEFAULT_LOCATIONS);
+  const list=document.getElementById('loc-list');
+  const pins=document.getElementById('map-pins');
+  if(!list)return;
+
+  list.innerHTML=locs.map((l,i)=>`
+    <div class="loc-row" style="animation-delay:${i*.07}s">
+      <div class="loc-pin-icon">📍</div>
+      <div>
+        <div class="loc-name-txt">${esc(l.name)}</div>
+        <div class="loc-sub-txt">${esc(l.sub||'Dubai, UAE')}</div>
+      </div>
+    </div>
+  `).join('');
+
+  if(pins){
+    const radii=[22,20,18,18,16,16];
+    const durs=['2.5s','3s','2s','3.5s','2.8s','4s'];
+    pins.innerHTML=locs.map((l,i)=>{
+      const r=radii[i]||16,dur=durs[i]||'3s';
+      return `
+      <g class="map-pin-g" transform="translate(${l.x||200},${l.y||200})">
+        <circle r="${r}" fill="rgba(255,69,0,.08)" stroke="rgba(255,69,0,.25)" stroke-width="1"/>
+        <circle r="${Math.round(r*.32)}" fill="#FF4500"/>
+        <circle r="${r}" fill="none" stroke="rgba(255,69,0,.3)" stroke-width="1">
+          <animate attributeName="r" values="${Math.round(r*.45)};${r};${Math.round(r*.45)}" dur="${dur}" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values=".8;0;.8" dur="${dur}" repeatCount="indefinite"/>
+        </circle>
+        <text y="${r+13}" text-anchor="middle" fill="rgba(255,69,0,.75)" font-size="8" font-family="sans-serif" font-weight="700">${esc(l.label||l.name.substring(0,6))}</text>
+      </g>`;
+    }).join('');
+  }
+}
+renderLocations();
+
+/* ─── FORM SUBMIT ─── */
+document.getElementById('fbtn').addEventListener('click',function(){
+  const name=v('fn'),company=v('fc'),phone=v('fp'),location=v('fl'),size=v('fs'),msg=v('fm');
+  const fmsg=document.getElementById('fmsg');
+  if(!name||!company||!phone||!location){
+    fmsg.textContent='Please fill in all required fields.';
+    fmsg.className='err';fmsg.style.display='block';
+    shake(this);return;
+  }
+  this.disabled=true;this.textContent='SENDING…';
+  const req={
+    id:'r'+Date.now(),name,company,phone,location,size,msg,
+    date:new Date().toLocaleDateString('en-GB'),read:false,
+    submittedAt:new Date().toISOString()
+  };
+  const arr=getData('ms_requests',[]);
+  arr.push(req);setData('ms_requests',arr);
+  setTimeout(()=>{
+    fmsg.textContent='✅ Request sent! We\'ll get back within 24 hours.';
+    fmsg.className='ok';fmsg.style.display='block';
+    this.textContent='SENT ✅';
+    ['fn','fc','fp','fm'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('fl').value='';document.getElementById('fs').value='';
+    showToast('Request submitted! 🎉');
+  },800);
+  setTimeout(()=>{this.disabled=false;this.textContent='SEND REQUEST →';},5500);
 });
 
-// Form submit
-document.querySelector('.submit-btn').addEventListener('click',function(){
-  this.textContent='✅ Sent! We\'ll be in touch soon.';
-  this.style.background='#27AE60';
-  setTimeout(()=>{
-    this.textContent='Send Request →';
-    this.style.background='';
-  },3000);
+/* ─── UTILS ─── */
+function v(id){return(document.getElementById(id)||{}).value?.trim()||'';}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function shake(el){
+  el.style.animation='shake .4s ease';
+  setTimeout(()=>{el.style.animation='';},400);
+}
+function showToast(msg,dur=3000){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),dur);
+}
+
+/* ─── LISTEN FOR ADMIN DATA CHANGES ─── */
+window.addEventListener('storage',e=>{
+  if(e.key==='ms_locations')renderLocations();
+  if(e.key==='ms_menu')renderMenu();
 });
 </script>
+<style>
+@keyframes shake{
+  0%,100%{transform:translateX(0);}
+  20%{transform:translateX(-6px);}
+  40%{transform:translateX(6px);}
+  60%{transform:translateX(-4px);}
+  80%{transform:translateX(4px);}
+}
+</style>
 </body>
 </html>
